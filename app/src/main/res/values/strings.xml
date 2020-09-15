@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">FlagQuiz</string>
+    <string name="welcome">Välkommen</string>
+    <string name="bannerFlag">Banner Flag</string>
+    <string name="to">till</string>
+    <string name="nameLabel">Namn: </string>
+    <string name="hiSocre">Hiscore: </string>
+    <string name="areaLabel">Område: </string>
+    <string name="areaLabel1">Norden</string>
+    <string name="areaLabel2">Europa</string>
+    <string name="areaLabel3">Asien</string>
+    <string name="areaLabel4">Afrika</string>
+    <string name="areaLabel5">Amerika</string>
+    <string name="hintText">Your name</string>
+    <string name="hiScoreDefText">0 rätt</string>
+    <string name="play">Spela!</string>
+    <string name="flag1">1st Flag</string>
+    <string name="flag2">2nd Flag</string>
+    <string name="flag3">3rd Flag</string>
+    <string name="flag4">4th Flag</string>
+    <string name="questNo">Flagga nr. 88?</string>
+    <string name="gameQuestion">Välj Sveriges flagga!</string>
+</resources>

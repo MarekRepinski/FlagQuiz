@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".GameActivity">
+
+    <ImageView
+        android:id="@+id/iwBottomGamePage"
+        android:layout_width="404dp"
+        android:layout_height="35dp"
+        android:contentDescription="@string/bannerFlag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/banner" />
+
+    <ImageView
+        android:id="@+id/ivTopBannerGamePage"
+        android:layout_width="409dp"
+        android:layout_height="38dp"
+        android:contentDescription="@string/bannerFlag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/banner2" />
+
+    <ImageView
+        android:id="@+id/ivFlagg3"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/picture_frame"
+        android:contentDescription="@string/flag4"
+        android:padding="10dp"
+        app:layout_constraintDimensionRatio="w,1.429:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivFlagg2"
+        app:layout_constraintTop_toBottomOf="@+id/ivFlagg1"
+        app:srcCompat="@drawable/dk" />
+
+    <ImageView
+        android:id="@+id/ivFlagg1"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+
+        android:layout_marginTop="20dp"
+        android:background="@android:drawable/picture_frame"
+        android:contentDescription="@string/flag2"
+        android:padding="10dp"
+        app:layout_constraintDimensionRatio="w,1.429:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivFlagg0"
+        app:layout_constraintTop_toBottomOf="@+id/tvGameHeader"
+        app:srcCompat="@drawable/no" />
+
+    <ImageView
+        android:id="@+id/ivFlagg0"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+
+        android:layout_marginTop="20dp"
+        android:background="@android:drawable/picture_frame"
+        android:contentDescription="@string/flag1"
+        android:padding="10dp"
+        app:layout_constraintDimensionRatio="w,1.429:1"
+        app:layout_constraintEnd_toStartOf="@+id/ivFlagg1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGameHeader"
+        app:srcCompat="@drawable/se" />
+
+    <ImageView
+        android:id="@+id/ivFlagg2"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/picture_frame"
+        android:contentDescription="@string/flag3"
+        android:padding="10dp"
+        app:layout_constraintDimensionRatio="w,1.429:1"
+        app:layout_constraintEnd_toStartOf="@+id/ivFlagg3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFlagg0"
+        app:srcCompat="@drawable/fi" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="206dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left" />
+
+    <TextView
+        android:id="@+id/tvGameHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@android:drawable/edit_text"
+        android:fontFamily="monospace"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/questNo"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGameQuestion"
+        android:layout_width="306dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="24dp"
+        android:background="@android:drawable/edit_text"
+        android:fontFamily="monospace"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/gameQuestion"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFlagg2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

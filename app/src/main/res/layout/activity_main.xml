@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flagQuizStartPage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
+
+    <CheckBox
+        android:id="@+id/ck5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ck4" />
+
+    <TextView
+        android:id="@+id/tvAreaLabel5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/areaLabel5"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ck5"
+        app:layout_constraintStart_toEndOf="@+id/ck5" />
+
+    <CheckBox
+        android:id="@+id/ck4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ck3" />
+
+    <TextView
+        android:id="@+id/tvAreaLabel4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/areaLabel4"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ck4"
+        app:layout_constraintStart_toEndOf="@+id/ck4" />
+
+    <TextView
+        android:id="@+id/tvAreaLabel3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/areaLabel3"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ck3"
+        app:layout_constraintStart_toEndOf="@+id/ck3" />
+
+    <CheckBox
+        android:id="@+id/ck3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ck2" />
+
+    <CheckBox
+        android:id="@+id/ck2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ck1" />
+
+    <TextView
+        android:id="@+id/tvAreaLabel2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/areaLabel2"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ck2"
+        app:layout_constraintStart_toEndOf="@+id/ck2" />
+
+    <TextView
+        android:id="@+id/tvAreaLabel1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="monospace"
+        android:text="@string/areaLabel1"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ck1"
+        app:layout_constraintStart_toEndOf="@+id/ck1" />
+
+    <TextView
+        android:id="@+id/tvHiScoreLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="monospace"
+        android:text="@string/hiSocre"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvHiScore"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWelcome2"
+        android:layout_width="306dp"
+        android:layout_height="54dp"
+        android:fontFamily="monospace"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTo" />
+
+    <TextView
+        android:id="@+id/tvWelcome"
+        android:layout_width="275dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="monospace"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTo"
+        android:layout_width="341dp"
+        android:layout_height="23dp"
+        android:fontFamily="monospace"
+        android:text="@string/to"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome" />
+
+    <ImageView
+        android:id="@+id/iwBottomBanner"
+        android:layout_width="404dp"
+        android:layout_height="35dp"
+        android:contentDescription="@string/bannerFlag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/banner" />
+
+    <ImageView
+        android:id="@+id/ivTopBanner"
+        android:layout_width="409dp"
+        android:layout_height="38dp"
+        android:contentDescription="@string/bannerFlag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/banner2" />
+
+    <TextView
+        android:id="@+id/tvNameLabel"
+        android:layout_width="0dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="monospace"
+        android:text="@string/nameLabel"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/etName"
+        app:layout_constraintEnd_toStartOf="@+id/etName"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="204dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:ems="10"
+        android:fontFamily="monospace"
+        android:hint="@string/hintText"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:textAlignment="textStart"
+        app:layout_constraintStart_toStartOf="@+id/tvHiScore"
+        app:layout_constraintTop_toBottomOf="@+id/tvWelcome2" />
+
+    <TextView
+        android:id="@+id/tvHiScore"
+        android:layout_width="146dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/editbox_dropdown_light_frame"
+        android:fontFamily="monospace"
+        android:paddingStart="0dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:text="@string/hiScoreDefText"
+        android:textAlignment="viewEnd"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/tvHiScoreLabel"
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+    <TextView
+        android:id="@+id/tvAreaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="monospace"
+        android:text="@string/areaLabel"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvAreaLabel1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHiScoreLabel" />
+
+    <CheckBox
+        android:id="@+id/ck1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:backgroundTint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAreaLabel" />
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="111dp"
+        android:layout_height="63dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/play"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/iwBottomBanner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
