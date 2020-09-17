@@ -12,7 +12,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.concurrent.schedule
-import kotlin.coroutines.*
+import kotlinx.coroutines.*
 
 class GameActivity : AppCompatActivity() {
     val gameImageViews = mutableListOf<ImageView>()
@@ -62,13 +62,20 @@ class GameActivity : AppCompatActivity() {
                     Log.d("AIK", "Up - correct")
                     iv.setImageResource(R.drawable.correct)
                 }
-//                Detta funkar!
+//                TODO: Detta funkar! dålig lösning. Titta på Coroutines
                 Handler().postDelayed({
                     Log.d("AIK","in timer")
                     resetImages()
                 },3000)
-
-//                Läs på mer om Corutiner
+//                Funkar inte!!
+//                GlobalScope.launch { // launch a new coroutine in background and continue
+//                    delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
+//                    CoroutineScope(Dispatchers.Main).launch {
+//                        Log.d("AIK", "in timer")
+//                        resetImages()
+//                    }
+//                }
+//                Funkar inte!!
 //                Timer().schedule(3000){
 //                    Log.d("AIK","in timer")
 //                    resetImages()
@@ -78,8 +85,7 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    suspend fun resetImages(){
-        delay(3000)
+    fun resetImages(){
         Log.d("AIK","reset")
         gameImageViews[0].setImageResource(R.drawable.se)
         gameImageViews[1].setImageResource(R.drawable.no)
