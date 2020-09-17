@@ -1,5 +1,5 @@
 package se.ctescape.flagquiz
 
-class Flag(val country: String, val flag: String, var used: Boolean = false) {
+class Flag(val country: String, val flagId: Int, var used: Boolean = false) {
 
 }

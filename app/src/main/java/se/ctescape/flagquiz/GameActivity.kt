@@ -23,8 +23,9 @@ class GameActivity : AppCompatActivity() {
         var id = 0
         Log.d("AIK","id = $id")
         for(i in 0..3){
-            val tempStr = "ivFlagg${i.toString()}"
-            id = getResources().getIdentifier("ivFlagg${i.toString()}", "id", getPackageName())
+            val tempStr = "ivFlagg$i"
+            id = resources.getIdentifier("ivFlagg$i", "id", packageName)
+
             Log.d("AIK","id = $id")
             gameImageViews.add(findViewById<ImageView>(id))
             gameImageViews[i].setOnTouchListener { v, e ->
@@ -41,13 +42,13 @@ class GameActivity : AppCompatActivity() {
             }
             if (areas[1])
                 areas[0] = true
-//            val flagQuizGame = FlagQuiz(areas)
+            val flagQuizGame = FlagQuiz(areas, gameImageViews)
         }
     }
 
     fun getAnswer(v: View, e : MotionEvent, iv : ImageView, i : Int){
 //        val defaultImage: Drawable = drawable
-        when(e?.action) {
+        when(e.action) {
             MotionEvent.ACTION_DOWN -> {
                 Log.d("AIK","Down")
                 iv.setImageResource(R.drawable.smileyworried)
