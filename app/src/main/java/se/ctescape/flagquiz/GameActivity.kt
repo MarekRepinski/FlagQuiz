@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_game.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.concurrent.schedule
@@ -16,6 +17,7 @@ import kotlinx.coroutines.*
 
 class GameActivity : AppCompatActivity() {
     val gameImageViews = mutableListOf<ImageView>()
+    lateinit var flagQuizGame : FlagQuiz
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,7 @@ class GameActivity : AppCompatActivity() {
         Log.d("AIK","id = $id")
         for(i in 0..3){
             val tempStr = "ivFlagg$i"
+            Log.d("AIK","id = $id")
             id = resources.getIdentifier("ivFlagg$i", "id", packageName)
 
             Log.d("AIK","id = $id")
@@ -42,8 +45,25 @@ class GameActivity : AppCompatActivity() {
             }
             if (areas[1])
                 areas[0] = true
-            val flagQuizGame = FlagQuiz(areas, gameImageViews)
+            flagQuizGame = FlagQuiz(areas)
+            if (!flagQuizGame.checkFlagsLeft())
+                endGame()
+            else
+                printNewFlags()
         }
+    }
+
+    fun printNewFlags(){
+        val idArray = flagQuizGame.printFlags()
+        tvGameHeader.text = getString(R.string.questNo, flagQuizGame.rond.toString(), flagQuizGame.noOfFlags().toString())
+        for (i in 0..(gameImageViews.size-1)){
+            gameImageViews[i].setImageResource(resources.getIdentifier(idArray[i], "drawable", packageName))
+        }
+        tvGameQuestion.text = getString(R.string.gameQuestion, idArray[gameImageViews.size])
+    }
+
+    fun endGame(){
+        Toast.makeText(this, "Game ended", Toast.LENGTH_SHORT).show()
     }
 
     fun getAnswer(v: View, e : MotionEvent, iv : ImageView, i : Int){
@@ -54,8 +74,8 @@ class GameActivity : AppCompatActivity() {
                 iv.setImageResource(R.drawable.smileyworried)
             }
             MotionEvent.ACTION_UP -> {
-                Log.d("AIK","Up - $i")
-                if (i == 1) {
+                Log.d("AIK","Up - $i right answer = ${flagQuizGame.correctAnswer}")
+                if (i != flagQuizGame.correctAnswer) {
                     Log.d("AIK", "Up - wrong")
                     iv.setImageResource(R.drawable.wrong)
                 }
@@ -66,7 +86,10 @@ class GameActivity : AppCompatActivity() {
 //                TODO: Detta funkar! dålig lösning. Titta på Coroutines
                 Handler().postDelayed({
                     Log.d("AIK","in timer")
-                    resetImages()
+                    if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft() )
+                        endGame()
+                    else
+                        printNewFlags()
                 },3000)
 //                Funkar inte!!
 //                GlobalScope.launch { // launch a new coroutine in background and continue
@@ -86,12 +109,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    fun resetImages(){
-        Log.d("AIK","reset")
-        gameImageViews[0].setImageResource(R.drawable.se)
-        gameImageViews[1].setImageResource(R.drawable.no)
-        gameImageViews[2].setImageResource(R.drawable.fi)
-        gameImageViews[3].setImageResource(R.drawable.dk)
-    }
+//    fun resetImages(){
+//        Log.d("AIK","reset")
+//        gameImageViews[0].setImageResource(R.drawable.se)
+//        gameImageViews[1].setImageResource(R.drawable.no)
+//        gameImageViews[2].setImageResource(R.drawable.fi)
+//        gameImageViews[3].setImageResource(R.drawable.dk)
+//    }
 
 }
