@@ -22,4 +22,10 @@
     <string name="flag4">4th Flag</string>
     <string name="questNo">Flagga nr. %1$s (av %2$s)</string>
     <string name="gameQuestion">Välj %1$ss flagga!</string>
+    <string name="basicHeader1">Inget område valt!</string>
+    <string name="basicInfo1">Område "Norden" kommer att väljas som default.</string>
+    <string name="basicHeader2">Inget namn angivet!</string>
+    <string name="basicInfo2">Utan namn kommer inte Hiscore att sparas</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Avbryt</string>
 </resources>
