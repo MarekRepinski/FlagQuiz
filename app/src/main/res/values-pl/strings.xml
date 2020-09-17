@@ -21,7 +21,7 @@
     <string name="flag3">3rd Flag</string>
     <string name="flag4">4th Flag</string>
     <string name="questNo">Flaga no. %1$s (od %2$s)</string>
-    <string name="gameQuestion">Wybierz flagę: %1$ss!</string>
+    <string name="gameQuestion">Wybierz flagę: %1$s!</string>
     <string name="basicHeader1">Strefa nie wybrana!</string>
     <string name="basicInfo1">Strefa "Skandinawia" zostanie wybrany jako domyślny</string>
     <string name="basicHeader2">Nie wybrano nazwy!</string>
