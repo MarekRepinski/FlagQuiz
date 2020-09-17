@@ -115,7 +115,7 @@ class FlagQuiz (difficulty: BooleanArray){
                 flagLista.add(Flag("Slovakien", "sk"))
                 flagLista.add(Flag("Slovenien", "si"))
                 flagLista.add(Flag("Spanien", "es"))
-                flagLista.add(Flag("Storbritannien", "uk"))
+                flagLista.add(Flag("Storbritannien", "gb"))
                 flagLista.add(Flag("Tjeckien", "cz"))
                 flagLista.add(Flag("Tyskland", "de"))
                 flagLista.add(Flag("Ukraina", "ua"))
