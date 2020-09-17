@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("bool$cnt", chkBox.isChecked)
                 cnt++
             }
-            Log.d("AIK", "We are running")
+//            Log.d("AIK", "We are running")
             startActivity(intent)
         }
     }

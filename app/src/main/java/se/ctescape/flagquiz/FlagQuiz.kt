@@ -1,9 +1,5 @@
 package se.ctescape.flagquiz
 
-import android.util.Log
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-
 class FlagQuiz (difficulty: BooleanArray){
     private val flagLista = mutableListOf<Flag>()
     var rond = 0

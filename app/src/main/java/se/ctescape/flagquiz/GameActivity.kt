@@ -1,7 +1,5 @@
 package se.ctescape.flagquiz
 
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -9,11 +7,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_game.*
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.concurrent.schedule
-import kotlinx.coroutines.*
 
 class GameActivity : AppCompatActivity() {
     val gameImageViews = mutableListOf<ImageView>()
@@ -24,13 +19,12 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
         var id = 0
-        Log.d("AIK", "id = $id")
+//        Log.d("AIK", "id = $id")
         for (i in 0..3) {
             val tempStr = "ivFlagg$i"
-            Log.d("AIK", "id = $id")
+//            Log.d("AIK", "id = $id")
             id = resources.getIdentifier("ivFlagg$i", "id", packageName)
-
-            Log.d("AIK", "id = $id")
+//            Log.d("AIK", "id = $id")
             gameImageViews.add(findViewById<ImageView>(id))
             gameImageViews[i].setOnTouchListener { v, e ->
                 getAnswer(v, e, gameImageViews[i], i)
@@ -62,7 +56,7 @@ class GameActivity : AppCompatActivity() {
             flagQuizGame.noOfFlags().toString()
         )
         for (i in 0..(gameImageViews.size - 1)) {
-            Log.d("AIK",idArray[i])
+//            Log.d("AIK",idArray[i])
             gameImageViews[i].setImageResource(
                 resources.getIdentifier(
                     idArray[i],
@@ -83,22 +77,22 @@ class GameActivity : AppCompatActivity() {
         if (onlyOnePick) {
             when (e.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    Log.d("AIK", "Down")
+//                    Log.d("AIK", "Down")
                     iv.setImageResource(R.drawable.smileyworried)
                 }
                 MotionEvent.ACTION_UP -> {
                     onlyOnePick = false
-                    Log.d("AIK", "Up - $i right answer = ${flagQuizGame.correctAnswer}")
+//                    Log.d("AIK", "Up - $i right answer = ${flagQuizGame.correctAnswer}")
                     if (i != flagQuizGame.correctAnswer) {
-                        Log.d("AIK", "Up - wrong")
+//                        Log.d("AIK", "Up - wrong")
                         iv.setImageResource(R.drawable.wrong)
                     } else {
-                        Log.d("AIK", "Up - correct")
+//                        Log.d("AIK", "Up - correct")
                         iv.setImageResource(R.drawable.correct)
                     }
 //                TODO: Detta funkar! dålig lösning. Titta på Coroutines
                     Handler().postDelayed({
-                        Log.d("AIK", "in timer")
+//                        Log.d("AIK", "in timer")
                         if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft())
                             endGame()
                         else
@@ -117,18 +111,9 @@ class GameActivity : AppCompatActivity() {
 //                    Log.d("AIK","in timer")
 //                    resetImages()
 //                }
-                    Log.d("AIK", "after timer")
+//                    Log.d("AIK", "after timer")
                 }
             }
         }
     }
-
-//    fun resetImages(){
-//        Log.d("AIK","reset")
-//        gameImageViews[0].setImageResource(R.drawable.se)
-//        gameImageViews[1].setImageResource(R.drawable.no)
-//        gameImageViews[2].setImageResource(R.drawable.fi)
-//        gameImageViews[3].setImageResource(R.drawable.dk)
-//    }
-
 }
