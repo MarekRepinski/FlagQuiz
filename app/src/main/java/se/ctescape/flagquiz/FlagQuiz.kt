@@ -1,6 +1,8 @@
 package se.ctescape.flagquiz
 
-class FlagQuiz (difficulty: BooleanArray){
+import java.util.Locale.getDefault
+
+class FlagQuiz(difficulty: BooleanArray) {
     private val flagLista = mutableListOf<Flag>()
     var rond = 0
     var points = 0
@@ -17,8 +19,9 @@ class FlagQuiz (difficulty: BooleanArray){
         }
     }
 
-    fun printFlags() : Array<String> {
+    fun printFlags(): Array<String> {
         rond++
+        var country = ""
         val dispLista = mutableListOf<Flag?>()
         var f: Flag
 
@@ -38,11 +41,22 @@ class FlagQuiz (difficulty: BooleanArray){
 
         //Fyll på med övriga flaggor
         for (i in 0..3) {
-            if (dispLista[i] == null) {
-                dispLista[i] = uniqueFlag(dispLista)
-            }
+            if (dispLista[i] == null) dispLista[i] = uniqueFlag(dispLista)
         }
-        return arrayOf(dispLista[0]!!.flagId, dispLista[1]!!.flagId, dispLista[2]!!.flagId, dispLista[3]!!.flagId, dispLista[correctAnswer]!!.country)
+        if (getDefault().language == "pl"){
+            country = dispLista[correctAnswer]!!.plCountry
+        } else if (getDefault().language == "sv"){
+            country = dispLista[correctAnswer]!!.svCountry
+        } else {
+            country = dispLista[correctAnswer]!!.enCountry
+        }
+        return arrayOf(
+            dispLista[0]!!.flagId,
+            dispLista[1]!!.flagId,
+            dispLista[2]!!.flagId,
+            dispLista[3]!!.flagId,
+            country
+        )
     }
 
     fun uniqueFlag(l: List<Flag?>): Flag {
@@ -72,58 +86,72 @@ class FlagQuiz (difficulty: BooleanArray){
         //TODO: Titta på android room database
         when (i) {
             1 -> {
-                flagLista.add(Flag("Sverige", "se"))
-                flagLista.add(Flag("Norge", "no"))
-                flagLista.add(Flag("Danmark", "dk"))
-                flagLista.add(Flag("Finland", "fi"))
-                flagLista.add(Flag("Island", "is"))
+                flagLista.add(Flag("Sweden", "Sverige", "Szwecja", "se"))
+                flagLista.add(Flag("Norway", "Norge", "Norwegia", "no"))
+                flagLista.add(Flag("Denmark", "Danmark", "Dania", "dk"))
+                flagLista.add(Flag("Finland", "Finland", "Finlandia", "fi"))
+                flagLista.add(Flag("Iceland", "Island", "Islandia", "is"))
             }
             2 -> {
-                flagLista.add(Flag("Albanien", "al"))
-                flagLista.add(Flag("Andorra", "ad"))
-                flagLista.add(Flag("Belgien", "be"))
-                flagLista.add(Flag("Bosnien", "ba"))
-                flagLista.add(Flag("Bulgarien", "bg"))
-                flagLista.add(Flag("Estland", "ee"))
-                flagLista.add(Flag("Frankrike", "fr"))
-                flagLista.add(Flag("Georgien", "ge"))
-                flagLista.add(Flag("Grekland", "gr"))
-                flagLista.add(Flag("Irland", "ie"))
-                flagLista.add(Flag("Italien", "it"))
-                flagLista.add(Flag("Kroatien", "hr"))
-                flagLista.add(Flag("Lettland", "lv"))
-                flagLista.add(Flag("Liechtenstein", "li"))
-                flagLista.add(Flag("Litauen", "lt"))
-                flagLista.add(Flag("Luxemburg", "lu"))
-                flagLista.add(Flag("Malta", "mt"))
-                flagLista.add(Flag("Moldavien", "md"))
-                flagLista.add(Flag("Monaco", "mc"))
-                flagLista.add(Flag("Montenegro", "me"))
-                flagLista.add(Flag("Nederländerna", "nl"))
-                flagLista.add(Flag("Nordmakedonien", "mk"))
-                flagLista.add(Flag("Polen", "pl"))
-                flagLista.add(Flag("Portugal", "pt"))
-                flagLista.add(Flag("Rumänien", "ro"))
-                flagLista.add(Flag("Ryssland", "ru"))
-                flagLista.add(Flag("San Marino", "sm"))
-                flagLista.add(Flag("Schweiz", "ch"))
-                flagLista.add(Flag("Serbien", "rs"))
-                flagLista.add(Flag("Slovakien", "sk"))
-                flagLista.add(Flag("Slovenien", "si"))
-                flagLista.add(Flag("Spanien", "es"))
-                flagLista.add(Flag("Storbritannien", "gb"))
-                flagLista.add(Flag("Tjeckien", "cz"))
-                flagLista.add(Flag("Tyskland", "de"))
-                flagLista.add(Flag("Ukraina", "ua"))
-                flagLista.add(Flag("Ungern", "hu"))
-                flagLista.add(Flag("Vatikanstaten", "va"))
-                flagLista.add(Flag("Vitryssland", "by"))
-                flagLista.add(Flag("Österrike", "at"))
+                flagLista.add(Flag("Albania", "Albanien", "Albania", "al"))
+                flagLista.add(Flag("Andorra", "Andorra", "Andora", "ad"))
+                flagLista.add(Flag("Belgium", "Belgien", "Belgia", "be"))
+                flagLista.add(Flag("Bosnia", "Bosnien", "Bośnia", "ba"))
+                flagLista.add(Flag("Bulgaria", "Bulgarien", "Bułgaria", "bg"))
+                flagLista.add(Flag("Estonia", "Estland", "Estonia", "ee"))
+                flagLista.add(Flag("France", "Frankrike", "Francja", "fr"))
+                flagLista.add(Flag("Georgia", "Georgien", "Gruzja", "ge"))
+                flagLista.add(Flag("Greece", "Grekland", "Grecja", "gr"))
+                flagLista.add(Flag("Ireland", "Irland", "Irlandia", "ie"))
+                flagLista.add(Flag("Italy", "Italien", "Włochy", "it"))
+                flagLista.add(Flag("Croatia", "Kroatien", "Chorwacja", "hr"))
+                flagLista.add(Flag("Latvia", "Lettland", "Łotwa", "lv"))
+                flagLista.add(Flag("Liechtenstein", "Liechtenstein", "Liechtenstein", "li"))
+                flagLista.add(Flag("Lithuania", "Litauen", "Litwa", "lt"))
+                flagLista.add(Flag("Luxembourg", "Luxemburg", "Luksemburg", "lu"))
+                flagLista.add(Flag("Malta", "Malta", "Malta", "mt"))
+                flagLista.add(Flag("Moldova", "Moldavien", "Moldova", "md"))
+                flagLista.add(Flag("Monaco", "Monaco", "Monako", "mc"))
+                flagLista.add(Flag("Montenegro", "Montenegro", "Czarnogóra", "me"))
+                flagLista.add(Flag("Netherlands", "Nederländerna", "Holandia", "nl"))
+                flagLista.add(
+                    Flag(
+                        "Northern Macedonia",
+                        "Nordmakedonien",
+                        "Macedonia Północna",
+                        "mk"
+                    )
+                )
+                flagLista.add(Flag("Poland", "Polen", "Polska", "pl"))
+                flagLista.add(Flag("Portugal", "Portugal", "Portugalia", "pt"))
+                flagLista.add(Flag("Romania", "Rumänien", "Rumunia", "ro"))
+                flagLista.add(Flag("Russia", "Ryssland", "Rosja", "ru"))
+                flagLista.add(Flag("San Marino", "San Marino", "San Marino", "sm"))
+                flagLista.add(Flag("Switzerland", "Schweiz", "Szwajcaria", "ch"))
+                flagLista.add(Flag("Serbia", "Serbien", "Serbia", "rs"))
+                flagLista.add(Flag("Slovakia", "Slovakien", "Słowacja", "sk"))
+                flagLista.add(Flag("Slovenia", "Slovenien", "Słowenia", "si"))
+                flagLista.add(Flag("Spain", "Spanien", "Hiszpania", "es"))
+                flagLista.add(Flag("United Kingdom", "Storbritannien", "Britania", "uk"))
+                flagLista.add(Flag("Great Britain", "Tjeckien", "Republika Czeska", "cz"))
+                flagLista.add(Flag("Germany", "Tyskland", "Niemcy", "de"))
+                flagLista.add(Flag("Ukraine", "Ukraina", "Ukraina", "ua"))
+                flagLista.add(Flag("Hungary", "Ungern", "Węgry", "hu"))
+                flagLista.add(
+                    Flag(
+                        "Vatican City State",
+                        "Vatikanstaten",
+                        "Państwo Watykańskie",
+                        "va"
+                    )
+                )
+                flagLista.add(Flag("Belarus", "Vitryssland", "Białoruś", "by"))
+                flagLista.add(Flag("Austria", "Österrike", "Austria", "at"))
             }
         }
     }
 
-    fun noOfFlags(): Int{
+    fun noOfFlags(): Int {
         return flagLista.size
     }
 }
