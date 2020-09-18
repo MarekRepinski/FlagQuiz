@@ -1,13 +1,15 @@
 package se.ctescape.flagquiz
 
-import android.widget.ImageView
-
-class FlagQuiz(difficulty: BooleanArray, flag0 : ImageView) {
+class FlagQuiz (difficulty: BooleanArray){
     private val flagLista = mutableListOf<Flag>()
+    var rond = 0
     var points = 0
+    var correctAnswer = 0
 
     init {
         var cnt = 0
+        if (difficulty[1])
+            difficulty[0] = true //Norden tillhör Europa
         for (i in difficulty) {
             cnt++
             if (i)
@@ -15,19 +17,10 @@ class FlagQuiz(difficulty: BooleanArray, flag0 : ImageView) {
         }
     }
 
-    fun run() {
-        var runOn = true
-        while (checkFlagsLeft() && runOn) {
-            runOn = rond()
-            if (runOn)
-                points++
-        }
-    }
-
-    fun rond(): Boolean {
+    fun printFlags() : Array<String> {
+        rond++
         val dispLista = mutableListOf<Flag?>()
         var f: Flag
-        var rightAnswer: Int
 
         for (i in 0..3) {
             dispLista.add(null)
@@ -40,24 +33,16 @@ class FlagQuiz(difficulty: BooleanArray, flag0 : ImageView) {
         f.used = true
 
         //Positionera flagga som ska gissas
-        rightAnswer = (0..3).random()
-        dispLista[rightAnswer] = f
+        correctAnswer = (0..3).random()
+        dispLista[correctAnswer] = f
 
         //Fyll på med övriga flaggor
         for (i in 0..3) {
-            if (dispLista[i] == null)
+            if (dispLista[i] == null) {
                 dispLista[i] = uniqueFlag(dispLista)
+            }
         }
-
-        return ++rightAnswer == (printFlags(rightAnswer, dispLista))?.toIntOrNull()
-    }
-
-    fun printFlags(i: Int, l: List<Flag?>): String? {
-        println("1.${l[0]!!.flag}\t\t\t2.${l[1]!!.flag}")
-        println("3.${l[2]!!.flag}\t\t\t4.${l[3]!!.flag}")
-        println("\nVilken flagga tillhör ${l[i - 1]!!.country}")
-        print("\n\nDitt svar: ")
-        return readLine()
+        return arrayOf(dispLista[0]!!.flagId, dispLista[1]!!.flagId, dispLista[2]!!.flagId, dispLista[3]!!.flagId, dispLista[correctAnswer]!!.country)
     }
 
     fun uniqueFlag(l: List<Flag?>): Flag {
@@ -84,7 +69,7 @@ class FlagQuiz(difficulty: BooleanArray, flag0 : ImageView) {
     }
 
     private fun setFlags(i: Int) {
-        //Titta på android room database
+        //TODO: Titta på android room database
         when (i) {
             1 -> {
                 flagLista.add(Flag("Sverige", "se"))
@@ -126,7 +111,7 @@ class FlagQuiz(difficulty: BooleanArray, flag0 : ImageView) {
                 flagLista.add(Flag("Slovakien", "sk"))
                 flagLista.add(Flag("Slovenien", "si"))
                 flagLista.add(Flag("Spanien", "es"))
-                flagLista.add(Flag("Storbritannien", "uk"))
+                flagLista.add(Flag("Storbritannien", "gb"))
                 flagLista.add(Flag("Tjeckien", "cz"))
                 flagLista.add(Flag("Tyskland", "de"))
                 flagLista.add(Flag("Ukraina", "ua"))
@@ -136,5 +121,9 @@ class FlagQuiz(difficulty: BooleanArray, flag0 : ImageView) {
                 flagLista.add(Flag("Österrike", "at"))
             }
         }
+    }
+
+    fun noOfFlags(): Int{
+        return flagLista.size
     }
 }

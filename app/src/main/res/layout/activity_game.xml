@@ -34,6 +34,7 @@
 
         android:layout_marginTop="8dp"
         android:background="@android:drawable/picture_frame"
+        android:backgroundTint="#F7F7F7F7"
         android:contentDescription="@string/flag4"
         android:padding="10dp"
         app:layout_constraintDimensionRatio="w,1.429:1"
@@ -50,6 +51,7 @@
 
         android:layout_marginTop="20dp"
         android:background="@android:drawable/picture_frame"
+        android:backgroundTint="#F7F7F7F7"
         android:contentDescription="@string/flag2"
         android:padding="10dp"
         app:layout_constraintDimensionRatio="w,1.429:1"
@@ -66,6 +68,7 @@
 
         android:layout_marginTop="20dp"
         android:background="@android:drawable/picture_frame"
+        android:backgroundTint="#F7F7F7F7"
         android:contentDescription="@string/flag1"
         android:padding="10dp"
         app:layout_constraintDimensionRatio="w,1.429:1"
@@ -81,6 +84,7 @@
 
         android:layout_marginTop="8dp"
         android:background="@android:drawable/picture_frame"
+        android:backgroundTint="#F7F7F7F7"
         android:contentDescription="@string/flag3"
         android:padding="10dp"
         app:layout_constraintDimensionRatio="w,1.429:1"
@@ -115,7 +119,7 @@
         android:paddingBottom="10dp"
         android:text="@string/questNo"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +128,7 @@
     <TextView
         android:id="@+id/tvGameQuestion"
         android:layout_width="306dp"
-        android:layout_height="111dp"
+        android:layout_height="0dp"
         android:layout_marginTop="24dp"
         android:background="@android:drawable/edit_text"
         android:fontFamily="monospace"

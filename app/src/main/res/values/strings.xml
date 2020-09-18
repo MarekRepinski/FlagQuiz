@@ -18,6 +18,6 @@
     <string name="flag2">2nd Flag</string>
     <string name="flag3">3rd Flag</string>
     <string name="flag4">4th Flag</string>
-    <string name="questNo">Flagga nr. 88?</string>
-    <string name="gameQuestion">Välj Sveriges flagga!</string>
+    <string name="questNo">Flagga nr. %1$s (av %2$s)</string>
+    <string name="gameQuestion">Välj %1$ss flagga!</string>
 </resources>
