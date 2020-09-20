@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".GameEndActivity">
+
+    <Button
+        android:id="@+id/btnStart2"
+        android:layout_width="wrap_content"
+        android:layout_height="63dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/colorAccent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:text="@string/playAgain"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivTopBanner2"
+        android:layout_width="409dp"
+        android:layout_height="38dp"
+        android:contentDescription="@string/bannerFlag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/banner2" />
+
+    <ImageView
+        android:id="@+id/iwBottomBanner2"
+        android:layout_width="404dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="@string/bannerFlag"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/banner" />
+</androidx.constraintlayout.widget.ConstraintLayout>

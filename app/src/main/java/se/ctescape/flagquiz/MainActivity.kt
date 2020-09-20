@@ -1,5 +1,6 @@
 package se.ctescape.flagquiz
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             if (etName.text.toString() != "") {
                 checkInput()
             } else {
-                basicAlert("Inget namn angivet!", "Utan namn kommer inte Hiscore att sparas")
+                basicAlert(getString(R.string.basicHeader2), getString(R.string.basicInfo2))
             }
         }
     }
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
         if (checkBoxesEmpty()){
             chkBoxes[0].isChecked = true
-            basicAlert("Inget område valt!", "Område \"Norden\" kommer att väljas som default.")
+            basicAlert(getString(R.string.basicHeader1), getString(R.string.basicInfo1))
         } else {
             val intent = Intent(this, GameActivity::class.java)
             var cnt = 0
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    @SuppressLint("StringFormatInvalid")
     override fun onStart() {
         super.onStart()
         sharedPref = getPreferences(Context.MODE_PRIVATE)
@@ -76,10 +78,10 @@ class MainActivity : AppCompatActivity() {
         if (playerName != "") {
             etName.setText(playerName)
             val hiscoreText = sharedPref.getInt(playerName, 0).toString()
-            tvHiScore.text = "$hiscoreText rätt"
+            tvHiScore.text = getString(R.string.hiScoreDefText, hiscoreText)
         } else {
             etName.setText("")
-            tvHiScore.text = "0 rätt"
+            tvHiScore.text = getString(R.string.hiScoreDefText, "0")
         }
     }
 
@@ -90,10 +92,10 @@ class MainActivity : AppCompatActivity() {
         {
             setTitle(title)
             setMessage(msg)
-            setPositiveButton("OK") { dialogInterface, i ->
+            setPositiveButton(getString(R.string.ok)) { dialogInterface, i ->
                 checkInput()
             }
-            setNegativeButton("Avbryt", null)
+            setNegativeButton(getString(R.string.cancel), null)
             show()
         }
     }

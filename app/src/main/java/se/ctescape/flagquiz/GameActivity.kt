@@ -1,5 +1,6 @@
 package se.ctescape.flagquiz
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -48,12 +49,13 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("StringFormatInvalid")
     fun printNewFlags() {
         val idArray = flagQuizGame.printFlags()
         tvGameHeader.text = getString(
             R.string.questNo,
-            flagQuizGame.rond.toString(),
-            flagQuizGame.noOfFlags().toString()
+            this.flagQuizGame.rond.toString(),
+            this.flagQuizGame.noOfFlags().toString()
         )
         for (i in 0..(gameImageViews.size - 1)) {
 //            Log.d("AIK",idArray[i])
