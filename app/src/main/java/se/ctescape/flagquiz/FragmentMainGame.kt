@@ -1,6 +1,7 @@
 package se.ctescape.flagquiz
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -13,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_main_game.*
+import java.lang.ClassCastException
 
 private const val ARG_PARAM1 = "param1"
 
@@ -20,11 +22,19 @@ class FragmentMainGame : Fragment() {
     val gameImageViews = mutableListOf<ImageView>()
     lateinit var flagQuizGame: FlagQuiz
     var onlyOnePick = true
-
     private lateinit var areas: BooleanArray
     lateinit var rubrik : TextView
     lateinit var question : TextView
-    private var areaTemp = BooleanArray(0)
+    private var areaTemp = BooleanArray(0) //Dirty solution... Ask for help
+    private lateinit var listener : onEndOfGame
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is onEndOfGame)
+            listener = context
+        else
+            throw ClassCastException(context.toString() + " must be onEndOfGame")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,6 +103,7 @@ class FragmentMainGame : Fragment() {
     }
 
     fun endGame() {
+        listener.onEndOfGame(flagQuizGame.points)
         Toast.makeText(activity, "Game ended", Toast.LENGTH_SHORT).show()
     }
 
@@ -138,5 +149,9 @@ class FragmentMainGame : Fragment() {
                 }
             }
         }
+    }
+
+    interface onEndOfGame{
+        fun onEndOfGame(points : Int)
     }
 }
