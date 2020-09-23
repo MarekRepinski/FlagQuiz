@@ -104,7 +104,7 @@ class FragmentMainGame : Fragment() {
 
     fun endGame() {
         Log.d("AIK","Listener - $flagQuizGame.points")
-        listener.onEndOfGame(flagQuizGame.points)
+        listener.onEndOfGame(flagQuizGame.points, flagQuizGame.noOfFlags())
         Toast.makeText(activity, "Game ended", Toast.LENGTH_SHORT).show()
     }
 
@@ -154,6 +154,6 @@ class FragmentMainGame : Fragment() {
     }
 
     interface onEndOfGame{
-        fun onEndOfGame(points : Int)
+        fun onEndOfGame(points : Int, noOfFlags : Int)
     }
 }

@@ -28,4 +28,17 @@
     <string name="basicInfo2">Bez imienia żaden Hiscore nie zostanie zbawiony</string>
     <string name="ok">OK</string>
     <string name="cancel">Anuluj</string>
+    <string name="yourResultNoHiscore">Twój wynik:</string>
+    <string name="yourResultPerHiscore">Twój osobisty hiscore</string>
+    <string name="yourResulHiscore">Nowy hiscore!!</string>
+    <string name="gotNoOfFlags">Trafiłeś  %1$s (od %2$s) flag</string>
+    <string name="verdict1">Dobra robota!!</string>
+    <string name="verdict2">Pracuj dalej!</string>
+    <string name="verdict3">24/5000 Ktoś musi się uczyć..</string>
+    <string name="bestPlayers">Najlepsi gracze:</string>
+    <string name="empty">" "</string>
+    <string name="firstPlace">1.</string>
+    <string name="secondPlace">2.</string>
+    <string name="thirdPlace">3.</string>
+    <string name="personalHiText">Twój osobisty hisore jest %1$s</string>
 </resources>

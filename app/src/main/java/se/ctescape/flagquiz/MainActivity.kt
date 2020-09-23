@@ -11,15 +11,17 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-    lateinit var sharedPref: SharedPreferences
-    lateinit var etName : EditText
-    lateinit var tvHiScore : TextView
-    lateinit var btnStart : Button
-    val chkBoxes = mutableListOf<CheckBox>()
+    private lateinit var etName : EditText
+    private lateinit var tvHiScore : TextView
+    private lateinit var btnStart : Button
+    private val chkBoxes = mutableListOf<CheckBox>()
+    private lateinit var sharedPref: SharedPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPref= getSharedPreferences("fqprefs", Context.MODE_PRIVATE)
         etName = findViewById<EditText>(R.id.etName)
         tvHiScore = findViewById<TextView>(R.id.tvHiScore)
         btnStart = findViewById<Button>(R.id.btnStart)
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     fun checkInput(){
         val playerName = etName.text.toString()
         with(sharedPref.edit()) {
-            putString("last", playerName)
+            putString("qeQ0EqeLastqeQ0Eqe", playerName)
             putInt(playerName, 0)
             commit()
         }
@@ -73,8 +75,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("StringFormatInvalid")
     override fun onStart() {
         super.onStart()
-        sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val playerName = sharedPref.getString("last", "")
+        val playerName = sharedPref.getString("qeQ0EqeLastqeQ0Eqe", "")?:""
         if (playerName != "") {
             etName.setText(playerName)
             val hiscoreText = sharedPref.getInt(playerName, 0).toString()

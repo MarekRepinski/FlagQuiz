@@ -10,9 +10,7 @@
         android:id="@+id/tvPersonalBest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         android:fontFamily="monospace"
         android:padding="4dp"
         android:text="@string/personalHiText"
@@ -37,12 +35,12 @@
 
     <TextView
         android:id="@+id/tvThirdPlaceName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="monospace"
         android:padding="4dp"
-        android:text="PlayerName"
+        android:text="@string/empty"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvThirdPlaceRank"
         app:layout_constraintStart_toEndOf="@+id/tvThirdPlaceRank" />
@@ -75,13 +73,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tvSecondPlaceRank" />
 
     <TextView
-        android:id="@+id/tvSecondPlace"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvSecondPlaceName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="monospace"
         android:padding="4dp"
-        android:text="PlayerName"
+        android:text="@string/empty"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvSecondPlaceRank"
         app:layout_constraintStart_toEndOf="@+id/tvSecondPlaceRank" />
@@ -95,8 +93,8 @@
         android:padding="4dp"
         android:text="57 Flags"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvSecondPlace"
-        app:layout_constraintStart_toEndOf="@+id/tvSecondPlace" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvSecondPlaceName"
+        app:layout_constraintStart_toEndOf="@+id/tvSecondPlaceName" />
 
     <TextView
         android:id="@+id/tvSecondPlaceRank"
@@ -125,12 +123,12 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvResult3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvVerdict" />
 
     <TextView
-        android:id="@+id/tvResult3"
+        android:id="@+id/tvVerdict"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:fontFamily="monospace"
         android:padding="5dp"
@@ -159,16 +157,15 @@
 
     <TextView
         android:id="@+id/tvResult"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="370dp"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:fontFamily="monospace"
         android:padding="5dp"
         android:text="@string/gotNoOfFlags"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvResultTitle" />
@@ -190,12 +187,12 @@
 
     <TextView
         android:id="@+id/tvFirstPlaceName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:fontFamily="monospace"
         android:padding="4dp"
-        android:text="PlayerName"
+        android:text="@string/empty"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvFirstPlaceRank"
         app:layout_constraintStart_toEndOf="@+id/tvFirstPlaceRank" />

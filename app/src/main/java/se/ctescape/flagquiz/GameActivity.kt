@@ -1,5 +1,6 @@
 package se.ctescape.flagquiz
 
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
@@ -7,7 +8,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 
 class GameActivity : AppCompatActivity(), FragmentMainGame.onEndOfGame, FragmentEndGame.onRestartGame {
     val gameImageViews = mutableListOf<ImageView>()
@@ -34,14 +34,14 @@ class GameActivity : AppCompatActivity(), FragmentMainGame.onEndOfGame, Fragment
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    override fun onEndOfGame(points: Int) {
+    override fun onEndOfGame(points: Int, noOfFlags : Int) {
         c = findViewById(R.id.gameConstrain)
         c.setBackgroundColor(getColor(R.color.colorPrimary))
-        val f = FragmentEndGame()
+        val f = FragmentEndGame.newInstance(points, noOfFlags)
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frmMainGame, f, "endFragment")
         transaction.commit()
-        Toast.makeText(this,"Your score was $points", Toast.LENGTH_LONG).show()
+//        Toast.makeText(this,"Your score was $points", Toast.LENGTH_LONG).show()
     }
 
     override fun onRestartGame() {

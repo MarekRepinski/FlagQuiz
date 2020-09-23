@@ -28,4 +28,17 @@
     <string name="basicInfo2">Utan namn kommer inte Hiscore att sparas</string>
     <string name="ok">OK</string>
     <string name="cancel">Avbryt</string>
+    <string name="yourResultNoHiscore">Ditt resultat:</string>
+    <string name="yourResultPerHiscore">Ditt personliga Hiscore</string>
+    <string name="gotNoOfFlags">Du prickade %1$s (av %2$s) flaggor</string>
+    <string name="yourResulHiscore">Nytt Hiscore!!</string>
+    <string name="verdict1">Bra Jobbat!!</string>
+    <string name="verdict2">Jobba vidare!</string>
+    <string name="verdict3">Nån måste plugga..</string>
+    <string name="bestPlayers">Bästa spelare:</string>
+    <string name="empty">" "</string>
+    <string name="firstPlace">1.</string>
+    <string name="secondPlace">2.</string>
+    <string name="thirdPlace">3.</string>
+    <string name="personalHiText">Ditt personliga hiscore är %1$s</string>
 </resources>

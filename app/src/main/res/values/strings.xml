@@ -35,9 +35,10 @@
     <string name="verdict2">Keep working!</string>
     <string name="verdict3">Someone needs to study..</string>
     <string name="bestPlayers">Best Players:</string>
-    <string name="empty"></string>
+    <string name="empty">" "</string>
     <string name="firstPlace">1.</string>
     <string name="secondPlace">2.</string>
     <string name="thirdPlace">3.</string>
     <string name="personalHiText">Your personal hisore is %1$s</string>
+    <string name="preference_file_key" translatable="false">flagQuiz_prefs</string>
 </resources>
