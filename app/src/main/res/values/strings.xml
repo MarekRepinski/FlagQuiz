@@ -27,6 +27,17 @@
     <string name="basicInfo2">Without name no Hiscore will be saved</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yourResultNoHiscore">You result:</string>
+    <string name="yourResultPerHiscore">New personal Hiscore!</string>
+    <string name="yourResulHiscore">New Hiscore!!</string>
+    <string name="gotNoOfFlags">You got %1$s (of %2$s) flags</string>
+    <string name="verdict1">Well done!!</string>
+    <string name="verdict2">Keep working!</string>
+    <string name="verdict3">Someone needs to study..</string>
+    <string name="bestPlayers">Best Players:</string>
+    <string name="empty"></string>
+    <string name="firstPlace">1.</string>
+    <string name="secondPlace">2.</string>
+    <string name="thirdPlace">3.</string>
+    <string name="personalHiText">Your personal hisore is %1$s</string>
 </resources>

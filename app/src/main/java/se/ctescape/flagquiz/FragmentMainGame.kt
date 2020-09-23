@@ -103,6 +103,7 @@ class FragmentMainGame : Fragment() {
     }
 
     fun endGame() {
+        Log.d("AIK","Listener - $flagQuizGame.points")
         listener.onEndOfGame(flagQuizGame.points)
         Toast.makeText(activity, "Game ended", Toast.LENGTH_SHORT).show()
     }
@@ -121,6 +122,7 @@ class FragmentMainGame : Fragment() {
 //                        Log.d("AIK", "Up - wrong")
                         iv.setImageResource(R.drawable.wrong)
                     } else {
+                        flagQuizGame.points++
 //                        Log.d("AIK", "Up - correct")
                         iv.setImageResource(R.drawable.correct)
                     }
