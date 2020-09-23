@@ -8,12 +8,13 @@
 
     <TextView
         android:id="@+id/tvPersonalBest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="308dp"
+        android:layout_height="84dp"
         android:layout_marginTop="24dp"
         android:fontFamily="monospace"
         android:padding="4dp"
         android:text="@string/personalHiText"
+        android:textAlignment="center"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +25,10 @@
         android:id="@+id/btnPlayAgain"
         android:layout_width="111dp"
         android:layout_height="63dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="80dp"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/playAgain"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,13 +50,14 @@
         android:id="@+id/tvThirdPlacePoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="monospace"
         android:padding="4dp"
-        android:text="57 Flags"
+        android:text="@string/correctFlags"
+        android:textAlignment="viewEnd"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvThirdPlaceName"
-        app:layout_constraintStart_toEndOf="@+id/tvThirdPlaceName" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tvThirdPlaceRank"
@@ -88,13 +90,14 @@
         android:id="@+id/tvSecondPlacePoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="monospace"
         android:padding="4dp"
-        android:text="57 Flags"
+        android:text="@string/correctFlags"
+        android:textAlignment="viewEnd"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvSecondPlaceName"
-        app:layout_constraintStart_toEndOf="@+id/tvSecondPlaceName" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tvSecondPlaceRank"
@@ -141,8 +144,8 @@
 
     <TextView
         android:id="@+id/tvResultTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_width="316dp"
+        android:layout_height="49dp"
         android:layout_marginTop="70dp"
         android:fontFamily="monospace"
         android:padding="5dp"
@@ -157,14 +160,14 @@
 
     <TextView
         android:id="@+id/tvResult"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:fontFamily="monospace"
         android:padding="5dp"
         android:text="@string/gotNoOfFlags"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -201,12 +204,13 @@
         android:id="@+id/tvFirstPlacePoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="monospace"
         android:padding="4dp"
-        android:text="188 Flags"
+        android:text="@string/correctFlags"
+        android:textAlignment="viewEnd"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tvFirstPlaceName"
-        app:layout_constraintStart_toEndOf="@+id/tvFirstPlaceName" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

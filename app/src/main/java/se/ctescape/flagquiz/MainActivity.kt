@@ -76,9 +76,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val playerName = sharedPref.getString("qeQ0EqeLastqeQ0Eqe", "")?:""
+        Log.d("AIK!!", "-$playerName-")
         if (playerName != "") {
             etName.setText(playerName)
             val hiscoreText = sharedPref.getInt(playerName, 0).toString()
+            Log.d("AIK!!",hiscoreText)
             tvHiScore.text = getString(R.string.hiScoreDefText, hiscoreText)
         } else {
             etName.setText("")

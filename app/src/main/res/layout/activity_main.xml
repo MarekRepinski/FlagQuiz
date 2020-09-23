@@ -129,7 +129,7 @@
     <TextView
         android:id="@+id/tvWelcome"
         android:layout_width="275dp"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:layout_marginTop="32dp"
         android:fontFamily="monospace"
         android:text="@string/welcome"

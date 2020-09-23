@@ -13,7 +13,7 @@
     <string name="areaLabel4">Afrika</string>
     <string name="areaLabel5">Amerika</string>
     <string name="hintText">Your name</string>
-    <string name="hiScoreDefText">0 rätt</string>
+    <string name="hiScoreDefText">%1$s rätt</string>
     <string name="play">Spela!</string>
     <string name="playAgain">Spela igen!</string>
     <string name="flag1">1st Flag</string>
@@ -41,4 +41,5 @@
     <string name="secondPlace">2.</string>
     <string name="thirdPlace">3.</string>
     <string name="personalHiText">Ditt personliga hiscore är %1$s</string>
+    <string name="correctFlags">%1$s flaggor</string>
 </resources>
