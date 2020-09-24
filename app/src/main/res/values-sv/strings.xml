@@ -40,6 +40,6 @@
     <string name="firstPlace">1.</string>
     <string name="secondPlace">2.</string>
     <string name="thirdPlace">3.</string>
-    <string name="personalHiText">Ditt hiscore är %1$s flaggor</string>
+    <string name="personalHiText">Din hiscore är %1$s flaggor</string>
     <string name="correctFlags">%1$s flaggor</string>
 </resources>

@@ -35,7 +35,7 @@ class FragmentMainGame : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp
+            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp  //TODO: Dirty solution... Ask for help
         }
     }
 
