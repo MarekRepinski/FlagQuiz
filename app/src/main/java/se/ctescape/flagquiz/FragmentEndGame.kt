@@ -3,14 +3,12 @@ package se.ctescape.flagquiz
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import java.lang.ClassCastException
+import androidx.fragment.app.Fragment
 
 private const val ARG_PARAM1 = "points"
 private const val ARG_PARAM2 = "noOfFlags"
@@ -84,16 +82,7 @@ class FragmentEndGame : Fragment() {
                 putInt(currentPlayer, points)
                 commit()
             }
-            Log.d(
-                "AIK!!",
-                "currentPlayer: $currentPlayer - points: $points - sharedPref.getInt(currentPlayer, 0): ${
-                    sharedPref.getInt(
-                        currentPlayer,
-                        0
-                    )
-                }"
-            )
-        } else if (points > sharedPref!!.getInt(currentPlayer, 0)) {
+        } else if (points > sharedPref.getInt(currentPlayer, 0)) {
             tv.text = activity!!.getString(R.string.yourResultPerHiscore)
             with(sharedPref.edit()) {
                 putInt(currentPlayer, points)
@@ -121,15 +110,15 @@ class FragmentEndGame : Fragment() {
         tv = v.findViewById<TextView>(R.id.tvFirstPlaceName)
         tv.text = namesHi[0]
         tv = v.findViewById<TextView>(R.id.tvFirstPlacePoints)
-        tv.text = pointsHi[0].toString()
+        tv.text = activity!!.getString(R.string.correctFlags, pointsHi[0].toString())
         tv = v.findViewById<TextView>(R.id.tvSecondPlaceName)
         tv.text = namesHi[1]
         tv = v.findViewById<TextView>(R.id.tvSecondPlacePoints)
-        tv.text = pointsHi[1].toString()
+        tv.text = activity!!.getString(R.string.correctFlags, pointsHi[1].toString())
         tv = v.findViewById<TextView>(R.id.tvThirdPlaceName)
         tv.text = namesHi[2]
         tv = v.findViewById<TextView>(R.id.tvThirdPlacePoints)
-        tv.text = pointsHi[2].toString()
+        tv.text = activity!!.getString(R.string.correctFlags, pointsHi[2].toString())
 
         tv = v.findViewById<TextView>(R.id.tvPersonalBest)
         tv.text = activity!!.getString(
@@ -146,9 +135,8 @@ class FragmentEndGame : Fragment() {
         }
 
         //Get top 3 players
-        sharedPref?.all?.forEach {
+        sharedPref.all.forEach {
             //access key using it.key & value using it.value
-            Log.d("AIK!! Pref values", "${it.key} : ${it.value}")
             if (it.key == "qeQ0EqeLastqeQ0Eqe") {
                 currentPlayer = it.value.toString()
             } else if (it.value as Int > pointsHi[0]) {
@@ -167,11 +155,6 @@ class FragmentEndGame : Fragment() {
                 namesHi[2] = it.key
                 pointsHi[2] = it.value as Int
             }
-        }
-
-        for (i in 0..2) {
-            Log.d("AIK!!", namesHi[i])
-            Log.d("AIK!!", pointsHi[i].toString())
         }
     }
 

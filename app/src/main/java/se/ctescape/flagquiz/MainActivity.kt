@@ -6,8 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.widget.*
+import android.widget.Button
+import android.widget.CheckBox
+import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         chkBoxes.add(findViewById(R.id.ck5))
 
         btnStart.setOnClickListener {
-            val playerName = etName.text.toString()
             if (etName.text.toString() != "") {
                 checkInput()
             } else {
@@ -43,9 +44,11 @@ class MainActivity : AppCompatActivity() {
 
     fun checkInput(){
         val playerName = etName.text.toString()
+        val newPlayer = !sharedPref.contains(playerName)
         with(sharedPref.edit()) {
             putString("qeQ0EqeLastqeQ0Eqe", playerName)
-            putInt(playerName, 0)
+            if (newPlayer)
+                putInt(playerName, 0)
             commit()
         }
         if (checkBoxesEmpty()){
@@ -59,7 +62,6 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("bool$cnt", chkBox.isChecked)
                 cnt++
             }
-//            Log.d("AIK", "We are running")
             startActivity(intent)
         }
     }
@@ -76,11 +78,9 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val playerName = sharedPref.getString("qeQ0EqeLastqeQ0Eqe", "")?:""
-        Log.d("AIK!!", "-$playerName-")
         if (playerName != "") {
             etName.setText(playerName)
             val hiscoreText = sharedPref.getInt(playerName, 0).toString()
-            Log.d("AIK!!",hiscoreText)
             tvHiScore.text = getString(R.string.hiScoreDefText, hiscoreText)
         } else {
             etName.setText("")

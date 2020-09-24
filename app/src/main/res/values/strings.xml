@@ -21,16 +21,16 @@
     <string name="flag4">4th Flag</string>
     <string name="questNo">Flag no. %1$s (of %2$s)</string>
     <string name="gameQuestion">Choose flag for %1$s!</string>
-    <string name="basicHeader1">No zone choosen!</string>
-    <string name="basicInfo1">Zone "Scandinavia" will be choosen as default</string>
-    <string name="basicHeader2">No name choosen!</string>
+    <string name="basicHeader1">No zone chosen!</string>
+    <string name="basicInfo1">Zone "Scandinavia" will be chosen as default</string>
+    <string name="basicHeader2">No name chosen!</string>
     <string name="basicInfo2">Without name no Hiscore will be saved</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="yourResultNoHiscore">You result:</string>
+    <string name="yourResultNoHiscore">Your result:</string>
     <string name="yourResultPerHiscore">New personal Hiscore!</string>
     <string name="yourResulHiscore">New Hiscore!!</string>
-    <string name="gotNoOfFlags">You got %1$s (of %2$s) flags</string>
+    <string name="gotNoOfFlags">%1$s (of %2$s) flags</string>
     <string name="verdict1">Well done!!</string>
     <string name="verdict2">Keep working!</string>
     <string name="verdict3">Someone needs to study..</string>
@@ -39,7 +39,7 @@
     <string name="firstPlace">1.</string>
     <string name="secondPlace">2.</string>
     <string name="thirdPlace">3.</string>
-    <string name="personalHiText">Your personal hisore is %1$s</string>
+    <string name="personalHiText">Your hisore is %1$s flags</string>
     <string name="preference_file_key" translatable="false">flagQuiz_prefs</string>
     <string name="correctFlags">%1$s flags</string>
 </resources>

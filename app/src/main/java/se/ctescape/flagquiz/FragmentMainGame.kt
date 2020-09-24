@@ -4,17 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_main_game.*
-import java.lang.ClassCastException
+import androidx.fragment.app.Fragment
 
 private const val ARG_PARAM1 = "param1"
 
@@ -50,12 +46,10 @@ class FragmentMainGame : Fragment() {
         val v = inflater.inflate(R.layout.fragment_main_game, container, false)
         rubrik = v.findViewById(R.id.tvGameHeader)
         question = v.findViewById(R.id.tvGameQuestion)
-        var id = 0
+//        var id = 0
         for (i in 0..3) {
-            val tempStr = "ivFlagg$i"
-            id = resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)
-//            Log.d("AIK",id.toString())
-            gameImageViews.add(v.findViewById<ImageView>(id))
+//            id = resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)
+            gameImageViews.add(v.findViewById<ImageView>(resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)))
             gameImageViews[i].setOnTouchListener { v, e ->
                 getAnswer(v, e, gameImageViews[i], i)
                 true
@@ -65,7 +59,6 @@ class FragmentMainGame : Fragment() {
         if (!flagQuizGame.checkFlagsLeft())
             endGame()
         else
-//            Log.d("AIK","${R.string.questNo}, ${this.flagQuizGame.rond.toString()}, ${this.flagQuizGame.noOfFlags().toString()}")
             printNewFlags()
         return v
     }
@@ -103,27 +96,21 @@ class FragmentMainGame : Fragment() {
     }
 
     fun endGame() {
-        Log.d("AIK","Listener - $flagQuizGame.points")
         listener.onEndOfGame(flagQuizGame.points, flagQuizGame.noOfFlags())
-        Toast.makeText(activity, "Game ended", Toast.LENGTH_SHORT).show()
     }
 
     fun getAnswer(v: View, e: MotionEvent, iv: ImageView, i: Int) {
         if (onlyOnePick) {
             when (e.action) {
                 MotionEvent.ACTION_DOWN -> {
-//                    Log.d("AIK", "Down")
                     iv.setImageResource(R.drawable.smileyworried)
                 }
                 MotionEvent.ACTION_UP -> {
                     onlyOnePick = false
-//                    Log.d("AIK", "Up - $i right answer = ${flagQuizGame.correctAnswer}")
                     if (i != flagQuizGame.correctAnswer) {
-//                        Log.d("AIK", "Up - wrong")
                         iv.setImageResource(R.drawable.wrong)
                     } else {
                         flagQuizGame.points++
-//                        Log.d("AIK", "Up - correct")
                         iv.setImageResource(R.drawable.correct)
                     }
 //                TODO: Detta funkar! dålig lösning. Titta på Coroutines

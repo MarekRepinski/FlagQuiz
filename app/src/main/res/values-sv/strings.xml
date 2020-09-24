@@ -30,7 +30,7 @@
     <string name="cancel">Avbryt</string>
     <string name="yourResultNoHiscore">Ditt resultat:</string>
     <string name="yourResultPerHiscore">Ditt personliga Hiscore</string>
-    <string name="gotNoOfFlags">Du prickade %1$s (av %2$s) flaggor</string>
+    <string name="gotNoOfFlags">%1$s (av %2$s) flaggor</string>
     <string name="yourResulHiscore">Nytt Hiscore!!</string>
     <string name="verdict1">Bra Jobbat!!</string>
     <string name="verdict2">Jobba vidare!</string>
@@ -40,6 +40,6 @@
     <string name="firstPlace">1.</string>
     <string name="secondPlace">2.</string>
     <string name="thirdPlace">3.</string>
-    <string name="personalHiText">Ditt personliga hiscore är %1$s</string>
+    <string name="personalHiText">Ditt hiscore är %1$s flaggor</string>
     <string name="correctFlags">%1$s flaggor</string>
 </resources>

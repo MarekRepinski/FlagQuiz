@@ -1,10 +1,8 @@
 package se.ctescape.flagquiz
 
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +39,6 @@ class GameActivity : AppCompatActivity(), FragmentMainGame.onEndOfGame, Fragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frmMainGame, f, "endFragment")
         transaction.commit()
-//        Toast.makeText(this,"Your score was $points", Toast.LENGTH_LONG).show()
     }
 
     override fun onRestartGame() {
