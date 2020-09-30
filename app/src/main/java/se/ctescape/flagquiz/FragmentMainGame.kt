@@ -8,9 +8,10 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
 
 private const val ARG_PARAM1 = "param1"
 
@@ -23,6 +24,12 @@ class FragmentMainGame : Fragment() {
     lateinit var question : TextView
     private var areaTemp = BooleanArray(0)
     private lateinit var listener : onEndOfGame
+    private val PROGRESS_MAX = 100
+    private val PROGRESS_START = 0
+    private val JOB_TIME = 10000 //ms
+    private lateinit var progressBar: ProgressBar
+    private lateinit var job: CompletableJob
+
     private val timerNew = object: CountDownTimer(2000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             /* no-op */
@@ -63,6 +70,8 @@ class FragmentMainGame : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val v = inflater.inflate(R.layout.fragment_main_game, container, false)
+        progressBar = v.findViewById(R.id.progressBar)
+
         rubrik = v.findViewById(R.id.tvGameHeader)
         question = v.findViewById(R.id.tvGameQuestion)
         for (i in 0..3) {
@@ -90,8 +99,31 @@ class FragmentMainGame : Fragment() {
             }
     }
 
+    fun ProgressBar.startJobOrCancel(job: Job){
+        if (this.progress > 0){
+            /* no-op */
+        } else {
+            //IO + job skapar ett nytt unikt context
+            CoroutineScope(Dispatchers.IO + job).launch{
+                for(i in PROGRESS_START..PROGRESS_MAX){
+                    delay((JOB_TIME/PROGRESS_MAX).toLong())
+                    this@startJobOrCancel.progress = i
+                }
+                GlobalScope.launch(Main){
+                    for(i in 0..3){
+                        gameImageViews[i].setImageResource(R.drawable.timeisup)
+                    }
+                    timerEnd.start()                }
+//                showToast("Times Up!")
+            }
+        }
+    }
+
     @SuppressLint("StringFormatInvalid")
     fun printNewFlags() {
+        initJob()
+        progressBar.startJobOrCancel(job)
+
         val idArray = flagQuizGame.printFlags()
         rubrik.text = activity!!.getString(
             R.string.questNo,
@@ -111,6 +143,31 @@ class FragmentMainGame : Fragment() {
         onlyOnePick = true
     }
 
+    private fun initJob() {
+        job = Job()
+        // När jobbet avslutas kommer koden nedan att köras (även vid cancel)
+        job.invokeOnCompletion {
+            it?.message.let {
+                var msg = it
+                if (msg.isNullOrBlank()){
+                    msg = "Unknown cancellation error."
+                }
+            }
+        }
+        progressBar.max = PROGRESS_MAX
+        progressBar.progress = PROGRESS_START
+    }
+
+//    fun showToast(msg: String){
+//        GlobalScope.launch(Dispatchers.Main) {
+//            Toast.makeText(
+//                this@MainActivity,
+//                msg,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//        }
+//    }
+
     fun endGame() {
         listener.onEndOfGame(flagQuizGame.points, flagQuizGame.noOfFlags())
     }
@@ -123,6 +180,7 @@ class FragmentMainGame : Fragment() {
                 }
                 MotionEvent.ACTION_UP -> {
                     onlyOnePick = false
+                    job.cancel(CancellationException("Resetting timer"))
                     if (i != flagQuizGame.correctAnswer) {
                         iv.setImageResource(R.drawable.wrong)
                     } else {
