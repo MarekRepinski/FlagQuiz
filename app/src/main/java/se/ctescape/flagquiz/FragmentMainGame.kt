@@ -3,7 +3,7 @@ package se.ctescape.flagquiz
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -21,8 +21,27 @@ class FragmentMainGame : Fragment() {
     private lateinit var areas: BooleanArray
     lateinit var rubrik : TextView
     lateinit var question : TextView
-    private var areaTemp = BooleanArray(0) //Dirty solution... Ask for help
+    private var areaTemp = BooleanArray(0)
     private lateinit var listener : onEndOfGame
+    private val timerNew = object: CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            /* no-op */
+        }
+
+        override fun onFinish() {
+            printNewFlags()
+        }
+    }
+
+    private val timerEnd = object: CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            /* no-op */
+        }
+
+        override fun onFinish() {
+            endGame()
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,7 +54,7 @@ class FragmentMainGame : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp  //TODO: Dirty solution... Ask for help
+            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp
         }
     }
 
@@ -46,9 +65,7 @@ class FragmentMainGame : Fragment() {
         val v = inflater.inflate(R.layout.fragment_main_game, container, false)
         rubrik = v.findViewById(R.id.tvGameHeader)
         question = v.findViewById(R.id.tvGameQuestion)
-//        var id = 0
         for (i in 0..3) {
-//            id = resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)
             gameImageViews.add(v.findViewById<ImageView>(resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)))
             gameImageViews[i].setOnTouchListener { v, e ->
                 getAnswer(v, e, gameImageViews[i], i)
@@ -82,7 +99,6 @@ class FragmentMainGame : Fragment() {
             this.flagQuizGame.noOfFlags().toString()
         )
         for (i in 0..(gameImageViews.size - 1)) {
-//            Log.d("AIK",idArray[i])
             gameImageViews[i].setImageResource(
                 resources.getIdentifier(
                     idArray[i],
@@ -113,28 +129,10 @@ class FragmentMainGame : Fragment() {
                         flagQuizGame.points++
                         iv.setImageResource(R.drawable.correct)
                     }
-//                TODO: Detta funkar! dålig lösning. Titta på Coroutines
-                    Handler().postDelayed({
-//                        Log.d("AIK", "in timer")
-                        if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft())
-                            endGame()
-                        else
-                            printNewFlags()
-                    }, 2000)
-//                Funkar inte!!
-//                GlobalScope.launch { // launch a new coroutine in background and continue
-//                    delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
-//                    CoroutineScope(Dispatchers.Main).launch {
-//                        Log.d("AIK", "in timer")
-//                        resetImages()
-//                    }
-//                }
-//                Funkar inte!!
-//                Timer().schedule(3000){
-//                    Log.d("AIK","in timer")
-//                    resetImages()
-//                }
-//                    Log.d("AIK", "after timer")
+                    if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft())
+                        timerEnd.start()
+                    else
+                        timerNew.start()
                 }
             }
         }

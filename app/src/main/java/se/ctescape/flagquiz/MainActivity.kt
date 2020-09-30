@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
@@ -40,6 +43,27 @@ class MainActivity : AppCompatActivity() {
                 basicAlert(getString(R.string.basicHeader2), getString(R.string.basicInfo2))
             }
         }
+
+        etName.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+                val playerExists = sharedPref.contains(etName.text.toString())
+                if (playerExists) {
+                    val hiscoreText = sharedPref.getInt(etName.text.toString(), 0).toString()
+                    tvHiScore.text = getString(R.string.hiScoreDefText, hiscoreText)
+                } else {
+                    tvHiScore.text = getString(R.string.hiScoreDefText, "0")
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                /* no-op */
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                /* no-op */
+            }
+        })
     }
 
     fun checkInput(){
