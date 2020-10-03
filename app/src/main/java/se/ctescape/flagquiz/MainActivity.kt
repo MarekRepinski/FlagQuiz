@@ -107,6 +107,9 @@ class MainActivity : AppCompatActivity() {
             wait_bar.visibility = View.VISIBLE
             DataManager.flagLista.clear()
             CoroutineScope(IO).launch {
+                if (ck4.isChecked){
+                    loadDataManager(context, "africa")
+                }
                 if (ck2.isChecked) {
                     loadDataManager(context, "europe")
                     ck1.isChecked = true
