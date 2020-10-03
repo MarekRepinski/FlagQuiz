@@ -9,16 +9,20 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import se.ctescape.flagquiz.data.FQRepository
+import se.ctescape.flagquiz.data.FQdatabase
+import se.ctescape.flagquiz.data.FillDataBase
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var etName : EditText
-    private lateinit var tvHiScore : TextView
-    private lateinit var btnStart : Button
+    private lateinit var etName: EditText
+    private lateinit var tvHiScore: TextView
+    private lateinit var btnStart: Button
     private val chkBoxes = mutableListOf<CheckBox>()
     private lateinit var sharedPref: SharedPreferences
 
@@ -26,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        sharedPref= getSharedPreferences("fqprefs", Context.MODE_PRIVATE)
+        sharedPref = getSharedPreferences("fqprefs", Context.MODE_PRIVATE)
         etName = findViewById<EditText>(R.id.etName)
         tvHiScore = findViewById<TextView>(R.id.tvHiScore)
         btnStart = findViewById<Button>(R.id.btnStart)
@@ -36,11 +40,31 @@ class MainActivity : AppCompatActivity() {
         chkBoxes.add(findViewById(R.id.ck4))
         chkBoxes.add(findViewById(R.id.ck5))
 
+        val dbFill = FillDataBase(this)
+
+        val contex = this
+        wait_bar.visibility = View.VISIBLE
+        CoroutineScope(IO).launch {
+            var timeLimit = 0
+            while (!dbFill.finished && timeLimit < 20) {
+                delay(500)
+                timeLimit++
+            }
+            withContext(Dispatchers.Main) {
+                wait_bar.visibility = View.INVISIBLE
+                if (timeLimit >= 20){
+                    Toast.makeText(contex, "Loading database is taking too long", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+
         btnStart.setOnClickListener {
-            if (etName.text.toString() != "") {
-                checkInput()
-            } else {
-                basicAlert(getString(R.string.basicHeader2), getString(R.string.basicInfo2))
+            if (dbFill.finished) {
+                if (etName.text.toString() != "") {
+                    checkInput()
+                } else {
+                    basicAlert(getString(R.string.basicHeader2), getString(R.string.basicInfo2))
+                }
             }
         }
 
@@ -66,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun checkInput(){
+    fun checkInput() {
         val playerName = etName.text.toString()
         val newPlayer = !sharedPref.contains(playerName)
         with(sharedPref.edit()) {
@@ -75,23 +99,42 @@ class MainActivity : AppCompatActivity() {
                 putInt(playerName, 0)
             commit()
         }
-        if (checkBoxesEmpty()){
+        if (checkBoxesEmpty()) {
             chkBoxes[0].isChecked = true
             basicAlert(getString(R.string.basicHeader1), getString(R.string.basicInfo1))
         } else {
-            val intent = Intent(this, GameActivity::class.java)
-            var cnt = 0
-            intent.putExtra("noOfBools", chkBoxes.size)
-            for(chkBox in chkBoxes){
-                intent.putExtra("bool$cnt", chkBox.isChecked)
-                cnt++
+            val context = this
+            wait_bar.visibility = View.VISIBLE
+            DataManager.flagLista.clear()
+            CoroutineScope(IO).launch {
+                if (ck2.isChecked) {
+                    loadDataManager(context, "europe")
+                    ck1.isChecked = true
+                }
+                if (ck1.isChecked){
+                    loadDataManager(context,"scandinavia")
+                }
+                withContext(Dispatchers.Main){//Funkar bara från coroutines
+                    wait_bar.visibility = View.INVISIBLE
+                    val intent = Intent(context, GameActivity::class.java)
+                    startActivity(intent)
+                }
             }
-            startActivity(intent)
         }
     }
 
-    fun checkBoxesEmpty(): Boolean{
-        for(chkBox in chkBoxes){
+    suspend fun loadDataManager(context: Context, continent: String){
+        val repository = FQRepository(FQdatabase.getDatabase(context).FQdao())
+        CoroutineScope(IO).launch {
+            val list = repository.getContinent(continent)
+            list.forEach {
+                DataManager.flagLista.add(Flag(it.enCountry, it.svCountry, it.plCountry, it.flagId))
+            }
+        }
+    }
+
+    fun checkBoxesEmpty(): Boolean {
+        for (chkBox in chkBoxes) {
             if (chkBox.isChecked)
                 return false
         }
@@ -101,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("StringFormatInvalid")
     override fun onStart() {
         super.onStart()
-        val playerName = sharedPref.getString("qeQ0EqeLastqeQ0Eqe", "")?:""
+        val playerName = sharedPref.getString("qeQ0EqeLastqeQ0Eqe", "") ?: ""
         if (playerName != "") {
             etName.setText(playerName)
             val hiscoreText = sharedPref.getInt(playerName, 0).toString()
@@ -112,7 +155,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun basicAlert(title: String, msg: String){
+    fun basicAlert(title: String, msg: String) {
         val builder = AlertDialog.Builder(this)
 
         with(builder)

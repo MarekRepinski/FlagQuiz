@@ -13,16 +13,14 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 
-private const val ARG_PARAM1 = "param1"
+//private const val ARG_PARAM1 = "param1"
 
 class FragmentMainGame : Fragment() {
     val gameImageViews = mutableListOf<ImageView>()
     lateinit var flagQuizGame: FlagQuiz
     var onlyOnePick = true
-    private lateinit var areas: BooleanArray
     lateinit var rubrik : TextView
     lateinit var question : TextView
-    private var areaTemp = BooleanArray(0)
     private lateinit var listener : onEndOfGame
     private val PROGRESS_MAX = 100
     private val PROGRESS_START = 0
@@ -58,13 +56,14 @@ class FragmentMainGame : Fragment() {
             throw ClassCastException(context.toString() + " must be onEndOfGame")
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp
-        }
-    }
-
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        arguments?.let {
+//            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp
+//        }
+//    }
+//
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -76,12 +75,12 @@ class FragmentMainGame : Fragment() {
         question = v.findViewById(R.id.tvGameQuestion)
         for (i in 0..3) {
             gameImageViews.add(v.findViewById<ImageView>(resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)))
-            gameImageViews[i].setOnTouchListener { v, e ->
-                getAnswer(v, e, gameImageViews[i], i)
+            gameImageViews[i].setOnTouchListener { view, e ->
+                getAnswer(e, gameImageViews[i], i)
                 true
             }
         }
-        flagQuizGame = FlagQuiz(areas)
+        flagQuizGame = FlagQuiz()
         if (!flagQuizGame.checkFlagsLeft())
             endGame()
         else
@@ -89,15 +88,15 @@ class FragmentMainGame : Fragment() {
         return v
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: BooleanArray) =
-            FragmentMainGame().apply {
-                arguments = Bundle().apply {
-                    putBooleanArray(ARG_PARAM1, param1)
-                }
-            }
-    }
+//    companion object {
+//        @JvmStatic
+//        fun newInstance(param1: BooleanArray) =
+//            FragmentMainGame().apply {
+//                arguments = Bundle().apply {
+//                    putBooleanArray(ARG_PARAM1, param1)
+//                }
+//            }
+//    }
 
     fun ProgressBar.startJobOrCancel(job: Job){
         if (this.progress > 0){
@@ -146,14 +145,14 @@ class FragmentMainGame : Fragment() {
     private fun initJob() {
         job = Job()
         // När jobbet avslutas kommer koden nedan att köras (även vid cancel)
-        job.invokeOnCompletion {
-            it?.message.let {
-                var msg = it
-                if (msg.isNullOrBlank()){
-                    msg = "Unknown cancellation error."
-                }
-            }
-        }
+//        job.invokeOnCompletion {
+//            it?.message.let {
+//                var msg = it
+//                if (msg.isNullOrBlank()){
+//                    msg = "Unknown cancellation error."
+//                }
+//            }
+//        }
         progressBar.max = PROGRESS_MAX
         progressBar.progress = PROGRESS_START
     }
@@ -172,7 +171,7 @@ class FragmentMainGame : Fragment() {
         listener.onEndOfGame(flagQuizGame.points, flagQuizGame.noOfFlags())
     }
 
-    fun getAnswer(v: View, e: MotionEvent, iv: ImageView, i: Int) {
+    fun getAnswer(e: MotionEvent, iv: ImageView, i: Int) {
         if (onlyOnePick) {
             when (e.action) {
                 MotionEvent.ACTION_DOWN -> {
