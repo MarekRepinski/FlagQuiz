@@ -19,7 +19,6 @@ import se.ctescape.flagquiz.data.FQRepository
 import se.ctescape.flagquiz.data.FQdatabase
 import se.ctescape.flagquiz.data.FillDataBase
 // TODO: Add Oceania - data
-// TODO: Add America - data
 // TODO: Soundeffects
 // TODO: Animation
 // TODO: Add practice
@@ -112,6 +111,9 @@ class MainActivity : AppCompatActivity() {
             wait_bar.visibility = View.VISIBLE
             DataManager.flagLista.clear()
             CoroutineScope(IO).launch {
+                if (ck5.isChecked){
+                    loadDataManager(context, "america")
+                }
                 if (ck4.isChecked){
                     loadDataManager(context, "africa")
                 }

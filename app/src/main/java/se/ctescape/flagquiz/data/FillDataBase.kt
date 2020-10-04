@@ -322,7 +322,7 @@ class FillDataBase(val context: Context) {
                 repository.addFQdata(tempFQ)
                 tempFQ = FQdata(0,"Dominica", "Dominica", "Dominika", "dm", "america")
                 repository.addFQdata(tempFQ)
-                tempFQ = FQdata(0,"Dominican Republic", "Dominikanska republiken", "Dominikana", "do", "america")
+                tempFQ = FQdata(0,"Dominican Republic", "Dominikanska republiken", "Dominikana", "dom", "america")
                 repository.addFQdata(tempFQ)
                 tempFQ = FQdata(0,"El Salvador", "El Salvador", "Salwador", "sv", "america")
                 repository.addFQdata(tempFQ)
