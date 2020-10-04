@@ -42,4 +42,5 @@
     <string name="thirdPlace">3.</string>
     <string name="personalHiText">Twój hiscore jest %1$s flagi</string>
     <string name="correctFlags">%1$s flagi</string>
+    <string name="areaLabel6">Oceania</string>
 </resources>

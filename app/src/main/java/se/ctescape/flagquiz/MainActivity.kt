@@ -18,7 +18,12 @@ import kotlinx.coroutines.Dispatchers.IO
 import se.ctescape.flagquiz.data.FQRepository
 import se.ctescape.flagquiz.data.FQdatabase
 import se.ctescape.flagquiz.data.FillDataBase
-
+// TODO: Add Oceania - data
+// TODO: Add America - data
+// TODO: Soundeffects
+// TODO: Animation
+// TODO: Add practice
+// TODO: Clean up and comment the code
 class MainActivity : AppCompatActivity() {
     private lateinit var etName: EditText
     private lateinit var tvHiScore: TextView
@@ -109,6 +114,9 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(IO).launch {
                 if (ck4.isChecked){
                     loadDataManager(context, "africa")
+                }
+                if (ck3.isChecked){
+                    loadDataManager(context, "asia")
                 }
                 if (ck2.isChecked) {
                     loadDataManager(context, "europe")
