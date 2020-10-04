@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         chkBoxes.add(findViewById(R.id.ck3))
         chkBoxes.add(findViewById(R.id.ck4))
         chkBoxes.add(findViewById(R.id.ck5))
+        chkBoxes.add(findViewById(R.id.ck6))
 
         val dbFill = FillDataBase(this)
 
@@ -111,6 +112,9 @@ class MainActivity : AppCompatActivity() {
             wait_bar.visibility = View.VISIBLE
             DataManager.flagLista.clear()
             CoroutineScope(IO).launch {
+                if (ck6.isChecked){
+                    loadDataManager(context, "oceania")
+                }
                 if (ck5.isChecked){
                     loadDataManager(context, "america")
                 }
