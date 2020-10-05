@@ -157,8 +157,15 @@ class FragmentMainGame : Fragment() {
                         iv.setImageResource(R.drawable.correct)
                     }
                     if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft()) {
-                        val tvCorrect = gameImageViews[flagQuizGame.correctAnswer]
-                        tvCorrect.startAnimation(AnimationUtils.loadAnimation(context, R.anim.blink))
+                        if (i != flagQuizGame.correctAnswer) {
+                            val tvCorrect = gameImageViews[flagQuizGame.correctAnswer]
+                            tvCorrect.startAnimation(
+                                AnimationUtils.loadAnimation(
+                                    context,
+                                    R.anim.blink
+                                )
+                            )
+                        }
                         timerEnd.start()
                     } else {
                         timerNew.start()

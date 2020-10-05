@@ -46,4 +46,5 @@
     <string name="practice_label_btn">Practice</string>
     <string name="practice_main">Click on flag to reveal Country</string>
     <string name="back_btn">Back</string>
+    <string name="questionmark" translatable="false">\?\?\?\?\?</string>
 </resources>

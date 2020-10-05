@@ -1,5 +1,6 @@
 package se.ctescape.flagquiz
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,6 +12,7 @@ import java.util.*
 
 class PracticeActivity : AppCompatActivity() {
     var countryTxt = ""
+    var lastFlag = -1
 
     private val timerNew = object: CountDownTimer(2000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
@@ -22,6 +24,7 @@ class PracticeActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_practice)
@@ -40,7 +43,15 @@ class PracticeActivity : AppCompatActivity() {
 
     fun printNewFlag(){
         practice_answer_txt.text = "?????"
-        val f = flagLista[(0..(flagLista.size - 1)).random()]
+        var loopLimit = 0
+        var i : Int
+        do {
+            i = (0..(flagLista.size - 1)).random()
+            loopLimit++
+        } while(i == lastFlag && loopLimit < 1000)
+
+        lastFlag = i
+        val f = flagLista[i]
         if (Locale.getDefault().language == "pl"){
             countryTxt = f.plCountry
         } else if (Locale.getDefault().language == "sv"){

@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/back_btn"
-        android:layout_width="120dp"
-        android:layout_height="63dp"
+        android:layout_width="151dp"
+        android:layout_height="64dp"
         android:layout_marginBottom="48dp"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/back_btn"
@@ -33,7 +33,7 @@
         android:paddingTop="10dp"
         android:paddingRight="15dp"
         android:paddingBottom="10dp"
-        android:text="\?\?\?\?\?"
+        android:text="@string/questionmark"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
