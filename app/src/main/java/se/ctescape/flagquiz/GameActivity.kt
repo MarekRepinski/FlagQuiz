@@ -18,17 +18,10 @@ class GameActivity : AppCompatActivity(), FragmentMainGame.onEndOfGame, Fragment
         c = findViewById(R.id.gameConstrain)
         c.setBackgroundColor(getColor(R.color.colorPrimaryDark))
 
-//        val noOfBools = intent.getIntExtra("noOfBools", 0)
-//        if (noOfBools > 0) {
-//            val areas = BooleanArray(intent.getIntExtra("noOfBools", 0))
-//            for (i in 0..(noOfBools - 1)) {
-//                areas[i] = intent.getBooleanExtra("bool$i", false)
-//            }
-            val f = FragmentMainGame()
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frmMainGame, f, "gameFragment")
-            transaction.commit()
-//        }
+        val f = FragmentMainGame()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frmMainGame, f, "gameFragment")
+        transaction.commit()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)

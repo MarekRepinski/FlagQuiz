@@ -44,4 +44,6 @@
     <string name="preference_file_key" translatable="false">flagQuiz_prefs</string>
     <string name="correctFlags">%1$s flags</string>
     <string name="practice_label_btn">Practice</string>
+    <string name="practice_main">Click on flag to reveal Country</string>
+    <string name="back_btn">Back</string>
 </resources>

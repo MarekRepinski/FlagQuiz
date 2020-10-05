@@ -25,7 +25,7 @@
         android:id="@+id/btnPlayAgain"
         android:layout_width="111dp"
         android:layout_height="63dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="48dp"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/playAgain"
         android:textSize="16sp"

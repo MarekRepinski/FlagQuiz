@@ -1,0 +1,59 @@
+package se.ctescape.flagquiz
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.CountDownTimer
+import kotlinx.android.synthetic.main.activity_practice.*
+import kotlinx.android.synthetic.main.activity_practice.view.*
+import se.ctescape.flagquiz.DataManager.flagLista
+import se.ctescape.flagquiz.R
+import java.util.*
+
+class PracticeActivity : AppCompatActivity() {
+    var countryTxt = ""
+
+    private val timerNew = object: CountDownTimer(2000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            /* no-op */
+        }
+
+        override fun onFinish() {
+            printNewFlag()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_practice)
+
+        back_btn.setOnClickListener {
+            this.onBackPressed()
+        }
+
+        practice_flagg_iv.setOnTouchListener { view, motionEvent ->
+            practice_answer_txt.text = countryTxt
+            timerNew.start()
+            true
+        }
+        printNewFlag()
+    }
+
+    fun printNewFlag(){
+        practice_answer_txt.text = "?????"
+        val f = flagLista[(0..(flagLista.size - 1)).random()]
+        if (Locale.getDefault().language == "pl"){
+            countryTxt = f.plCountry
+        } else if (Locale.getDefault().language == "sv"){
+            countryTxt = f.svCountry
+        } else {
+            countryTxt = f.enCountry
+        }
+        practice_flagg_iv.setImageResource(
+            resources.getIdentifier(
+                f.flagId,
+                "drawable",
+                packageName
+            )
+        )
+    }
+}
