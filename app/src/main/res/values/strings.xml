@@ -43,4 +43,5 @@
     <string name="personalHiText">Your hisore is %1$s flags</string>
     <string name="preference_file_key" translatable="false">flagQuiz_prefs</string>
     <string name="correctFlags">%1$s flags</string>
+    <string name="practice_label_btn">Practice</string>
 </resources>
