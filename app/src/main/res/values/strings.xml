@@ -11,6 +11,7 @@
     <string name="areaLabel3">Asia</string>
     <string name="areaLabel4">Africa</string>
     <string name="areaLabel5">America</string>
+    <string name="areaLabel6">Oceania</string>
     <string name="hintText">Your name</string>
     <string name="hiScoreDefText">%1$s points</string>
     <string name="play">Play!</string>
