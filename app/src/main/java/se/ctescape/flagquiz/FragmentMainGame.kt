@@ -8,17 +8,18 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 
-//private const val ARG_PARAM1 = "param1"
-
 class FragmentMainGame : Fragment() {
     val gameImageViews = mutableListOf<ImageView>()
     lateinit var flagQuizGame: FlagQuiz
-    var onlyOnePick = true
+    var onlyOnePick = false
     lateinit var rubrik : TextView
     lateinit var question : TextView
     private lateinit var listener : onEndOfGame
@@ -28,7 +29,7 @@ class FragmentMainGame : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var job: CompletableJob
 
-    private val timerNew = object: CountDownTimer(2000, 1000) {
+    private val timerNew = object: CountDownTimer(1000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             /* no-op */
         }
@@ -38,7 +39,7 @@ class FragmentMainGame : Fragment() {
         }
     }
 
-    private val timerEnd = object: CountDownTimer(2000, 1000) {
+    private val timerEnd = object: CountDownTimer(3000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             /* no-op */
         }
@@ -56,13 +57,6 @@ class FragmentMainGame : Fragment() {
             throw ClassCastException(context.toString() + " must be onEndOfGame")
     }
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        arguments?.let {
-//            areas = it.getBooleanArray(ARG_PARAM1)?:areaTemp
-//        }
-//    }
-//
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,16 +82,6 @@ class FragmentMainGame : Fragment() {
         return v
     }
 
-//    companion object {
-//        @JvmStatic
-//        fun newInstance(param1: BooleanArray) =
-//            FragmentMainGame().apply {
-//                arguments = Bundle().apply {
-//                    putBooleanArray(ARG_PARAM1, param1)
-//                }
-//            }
-//    }
-
     fun ProgressBar.startJobOrCancel(job: Job){
         if (this.progress > 0){
             /* no-op */
@@ -109,11 +93,16 @@ class FragmentMainGame : Fragment() {
                     this@startJobOrCancel.progress = i
                 }
                 GlobalScope.launch(Main){
+                    onlyOnePick = false
                     for(i in 0..3){
-                        gameImageViews[i].setImageResource(R.drawable.timeisup)
+                        if (i == flagQuizGame.correctAnswer){
+                            gameImageViews[i].startAnimation(AnimationUtils.loadAnimation(context, R.anim.blink))
+                        } else {
+                            gameImageViews[i].setImageResource(R.drawable.timeisup)
+                        }
                     }
-                    timerEnd.start()                }
-//                showToast("Times Up!")
+                    timerEnd.start()
+                }
             }
         }
     }
@@ -144,28 +133,9 @@ class FragmentMainGame : Fragment() {
 
     private fun initJob() {
         job = Job()
-        // När jobbet avslutas kommer koden nedan att köras (även vid cancel)
-//        job.invokeOnCompletion {
-//            it?.message.let {
-//                var msg = it
-//                if (msg.isNullOrBlank()){
-//                    msg = "Unknown cancellation error."
-//                }
-//            }
-//        }
         progressBar.max = PROGRESS_MAX
         progressBar.progress = PROGRESS_START
     }
-
-//    fun showToast(msg: String){
-//        GlobalScope.launch(Dispatchers.Main) {
-//            Toast.makeText(
-//                this@MainActivity,
-//                msg,
-//                Toast.LENGTH_SHORT
-//            ).show()
-//        }
-//    }
 
     fun endGame() {
         listener.onEndOfGame(flagQuizGame.points, flagQuizGame.noOfFlags())
@@ -179,17 +149,20 @@ class FragmentMainGame : Fragment() {
                 }
                 MotionEvent.ACTION_UP -> {
                     onlyOnePick = false
-                    job.cancel(CancellationException("Resetting timer"))
+                    job.cancel(CancellationException("Resetting progressbar"))
                     if (i != flagQuizGame.correctAnswer) {
                         iv.setImageResource(R.drawable.wrong)
                     } else {
                         flagQuizGame.points++
                         iv.setImageResource(R.drawable.correct)
                     }
-                    if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft())
+                    if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft()) {
+                        val tvCorrect = gameImageViews[flagQuizGame.correctAnswer]
+                        tvCorrect.startAnimation(AnimationUtils.loadAnimation(context, R.anim.blink))
                         timerEnd.start()
-                    else
+                    } else {
                         timerNew.start()
+                    }
                 }
             }
         }

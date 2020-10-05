@@ -137,6 +137,7 @@
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:progressBackgroundTint="@color/colorAccent"
+        android:progressBackgroundTintMode="src_over"
         android:progressTint="@color/colorPrimaryDark"
         android:soundEffectsEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
