@@ -43,4 +43,7 @@
     <string name="personalHiText">Twój hiscore jest %1$s flagi</string>
     <string name="correctFlags">%1$s flagi</string>
     <string name="areaLabel6">Oceania</string>
+    <string name="practice_label_btn">Uczyć</string>
+    <string name="practice_main">Kliknij flagę, aby wyświetlić kraj</string>
+    <string name="back_btn">Powrot</string>
 </resources>

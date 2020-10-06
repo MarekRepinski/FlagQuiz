@@ -72,6 +72,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        btnPratice.setOnClickListener {
+            if (dbFill.finished) {
+                checkInput(false)
+            }
+        }
+
         etName.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
@@ -94,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    fun checkInput() {
+    fun checkInput(playGame: Boolean = true) {
         val playerName = etName.text.toString()
         val newPlayer = !sharedPref.contains(playerName)
         with(sharedPref.edit()) {
@@ -132,8 +138,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 withContext(Dispatchers.Main){//Funkar bara från coroutines
                     wait_bar.visibility = View.INVISIBLE
-                    val intent = Intent(context, GameActivity::class.java)
-                    startActivity(intent)
+                    if (playGame) {
+                        startActivity(Intent(context, GameActivity::class.java))
+                    } else {
+                        startActivity(Intent(context, PracticeActivity::class.java))
+                    }
                 }
             }
         }

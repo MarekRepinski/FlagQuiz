@@ -12,11 +12,9 @@ class FillDataBase(val context: Context) {
     init {
         val dao = FQdatabase.getDatabase(context).FQdao()
         repository = FQRepository(dao)
-        println("AIK!! Filling Database")
         CoroutineScope(Dispatchers.IO).launch {
             repository.deleteAllFQdata()
             var tempInt = repository.getCount()
-            println("AIK!! getCount() = ${tempInt}")
             if (tempInt == 0){
                 var tempFQ = FQdata(0, "Sweden", "Sverige", "Szwecja", "se", "scandinavia")
                 repository.addFQdata(tempFQ)
@@ -410,7 +408,6 @@ class FillDataBase(val context: Context) {
                 repository.addFQdata(tempFQ)
             }
             tempInt = repository.getCount()
-            println("AIK!! getCount() = ${tempInt} - After")
             finished = true
         }
     }

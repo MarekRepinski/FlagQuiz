@@ -43,4 +43,7 @@
     <string name="personalHiText">Din hiscore är %1$s flaggor</string>
     <string name="correctFlags">%1$s flaggor</string>
     <string name="areaLabel6">Oceanien</string>
+    <string name="practice_label_btn">Öva</string>
+    <string name="practice_main">Klicka på flaggan för att få landet.</string>
+    <string name="back_btn">Tillbaka</string>
 </resources>
