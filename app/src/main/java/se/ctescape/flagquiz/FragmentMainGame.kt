@@ -34,6 +34,8 @@ class FragmentMainGame : Fragment() {
     private var rightSnd = 0
     private var wrongSnd = 0
     private var hisocreSnd = 0
+    private var tickTockSnd = 0
+    private var tickTockId = 0
 
     private val timerNew = object: CountDownTimer(1000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
@@ -94,6 +96,11 @@ class FragmentMainGame : Fragment() {
         rightSnd = soundPool!!.load(context, R.raw.right_beep, 2)
         wrongSnd = soundPool!!.load(context, R.raw.bad_beep, 2)
         hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
+        tickTockSnd = soundPool!!.load(context, R.raw.tick_tock, 3)
+        soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
+            tickTockId = soundPool?.play(tickTockSnd,1f,1f,0,-1,1f)?:0
+        }
+        soundPool?.pause(tickTockId)
 
         flagQuizGame = FlagQuiz()
         if (!flagQuizGame.checkFlagsLeft())
@@ -128,6 +135,8 @@ class FragmentMainGame : Fragment() {
                             gameImageViews[i].setImageResource(R.drawable.timeisup)
                         }
                     }
+                    soundPool?.pause(tickTockId)
+                    soundPool?.play(wrongSnd,1f,1f,0,0,1f)
                     timerEnd.start()
                 }
             }
@@ -162,6 +171,7 @@ class FragmentMainGame : Fragment() {
         job = Job()
         progressBar.max = PROGRESS_MAX
         progressBar.progress = PROGRESS_START
+        soundPool?.resume(tickTockId)
     }
 
     fun endGame() {
@@ -175,6 +185,7 @@ class FragmentMainGame : Fragment() {
                     iv.setImageResource(R.drawable.smileyworried)
                 }
                 MotionEvent.ACTION_UP -> {
+                    soundPool?.pause(tickTockId)
                     onlyOnePick = false
                     job.cancel(CancellationException("Resetting progressbar"))
                     if (i != flagQuizGame.correctAnswer) {
