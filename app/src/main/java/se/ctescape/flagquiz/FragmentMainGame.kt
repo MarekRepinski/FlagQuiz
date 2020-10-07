@@ -96,7 +96,7 @@ class FragmentMainGame : Fragment() {
         rightSnd = soundPool!!.load(context, R.raw.right_beep, 2)
         wrongSnd = soundPool!!.load(context, R.raw.bad_beep, 2)
         hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
-        tickTockSnd = soundPool!!.load(context, R.raw.tick_tock, 3)
+        tickTockSnd = soundPool!!.load(context, R.raw.clock, 3)
         soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
             tickTockId = soundPool?.play(tickTockSnd,1f,1f,0,-1,1f)?:0
         }
