@@ -18,9 +18,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import se.ctescape.flagquiz.data.FQRepository
 import se.ctescape.flagquiz.data.FQdatabase
 import se.ctescape.flagquiz.data.FillDataBase
-// TODO: Soundeffects
-// TODO: Animation
-// TODO: Add practice
+// TODO: Animations
 // TODO: Clean up and comment the code
 class MainActivity : AppCompatActivity() {
     private lateinit var etName: EditText
@@ -115,6 +113,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             val context = this
             wait_bar.visibility = View.VISIBLE
+            if (ck2.isChecked) {
+                ck1.isChecked = true
+            }
             DataManager.flagLista.clear()
             CoroutineScope(IO).launch {
                 if (ck6.isChecked){
@@ -131,7 +132,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 if (ck2.isChecked) {
                     loadDataManager(context, "europe")
-                    ck1.isChecked = true
                 }
                 if (ck1.isChecked){
                     loadDataManager(context,"scandinavia")

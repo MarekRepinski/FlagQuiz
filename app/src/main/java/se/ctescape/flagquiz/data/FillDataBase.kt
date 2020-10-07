@@ -13,8 +13,8 @@ class FillDataBase(val context: Context) {
         val dao = FQdatabase.getDatabase(context).FQdao()
         repository = FQRepository(dao)
         CoroutineScope(Dispatchers.IO).launch {
-            repository.deleteAllFQdata()
-            var tempInt = repository.getCount()
+//            repository.deleteAllFQdata()
+            val tempInt = repository.getCount()
             if (tempInt == 0){
                 var tempFQ = FQdata(0, "Sweden", "Sverige", "Szwecja", "se", "scandinavia")
                 repository.addFQdata(tempFQ)
@@ -407,7 +407,6 @@ class FillDataBase(val context: Context) {
                 tempFQ = FQdata(0,"Vanuatu", "Vanuatu", "Vanuatu", "vu", "oceania")
                 repository.addFQdata(tempFQ)
             }
-            tempInt = repository.getCount()
             finished = true
         }
     }

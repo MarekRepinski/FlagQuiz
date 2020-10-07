@@ -2,6 +2,8 @@ package se.ctescape.flagquiz
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -28,6 +30,10 @@ class FragmentMainGame : Fragment() {
     private val JOB_TIME = 10000 //ms
     private lateinit var progressBar: ProgressBar
     private lateinit var job: CompletableJob
+    private var soundPool: SoundPool? = null
+    private var rightSnd = 0
+    private var wrongSnd = 0
+    private var hisocreSnd = 0
 
     private val timerNew = object: CountDownTimer(1000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
@@ -74,12 +80,33 @@ class FragmentMainGame : Fragment() {
                 true
             }
         }
+
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(3)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        rightSnd = soundPool!!.load(context, R.raw.right_beep, 2)
+        wrongSnd = soundPool!!.load(context, R.raw.bad_beep, 2)
+        hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
+
         flagQuizGame = FlagQuiz()
         if (!flagQuizGame.checkFlagsLeft())
             endGame()
         else
             printNewFlags()
         return v
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool?.release()
+        soundPool = null
     }
 
     fun ProgressBar.startJobOrCancel(job: Job){
@@ -165,9 +192,13 @@ class FragmentMainGame : Fragment() {
                                     R.anim.blink
                                 )
                             )
+                            soundPool?.play(wrongSnd,1f,1f,0,0,1f)
+                        } else {
+                            soundPool?.play(rightSnd,1f,1f,0,0,1f)
                         }
                         timerEnd.start()
                     } else {
+                        soundPool?.play(rightSnd,1f,1f,0,0,1f)
                         timerNew.start()
                     }
                 }

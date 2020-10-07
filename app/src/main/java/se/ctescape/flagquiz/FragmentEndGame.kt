@@ -2,6 +2,8 @@ package se.ctescape.flagquiz
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,8 @@ class FragmentEndGame : Fragment() {
     private val pointsHi = arrayOf<Int>(0, 0, 0)
     private var currentPlayer = ""
     private lateinit var sharedPref: SharedPreferences
+    private var soundPool: SoundPool? = null
+    private var hisocreSnd = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,6 +59,19 @@ class FragmentEndGame : Fragment() {
         backButton.setOnClickListener {
             listener.onRestartGame()
         }
+
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(3)
+            .setAudioAttributes(audioAttributes)
+            .build()
+
+        hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
+
         fillPage(v)
         return v
     }
@@ -71,18 +88,24 @@ class FragmentEndGame : Fragment() {
     }
 
     fun fillPage(v: View) {
-        var procentage = 0.0
+        val procentage: Double
 
         getTop3()
 
         var tv = v.findViewById<TextView>(R.id.tvResultTitle)
         if (points > pointsHi[0]) {
+            soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
+                soundPool?.play(hisocreSnd,1f,1f,0,0,1f)
+            }
             tv.text = activity!!.getString(R.string.yourResulHiscore)
             with(sharedPref.edit()) {
                 putInt(currentPlayer, points)
                 commit()
             }
         } else if (points > sharedPref.getInt(currentPlayer, 0)) {
+            soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
+                soundPool?.play(hisocreSnd,1f,1f,0,0,1f)
+            }
             tv.text = activity!!.getString(R.string.yourResultPerHiscore)
             with(sharedPref.edit()) {
                 putInt(currentPlayer, points)
