@@ -47,4 +47,5 @@
     <string name="practice_main">Click on flag to reveal Country</string>
     <string name="back_btn">Back</string>
     <string name="questionmark" translatable="false">\?\?\?\?\?</string>
+    <string name="star_desc" translatable="false">Star to Animate when right answer</string>
 </resources>

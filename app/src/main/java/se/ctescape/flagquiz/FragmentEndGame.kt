@@ -94,23 +94,11 @@ class FragmentEndGame : Fragment() {
 
         var tv = v.findViewById<TextView>(R.id.tvResultTitle)
         if (points > pointsHi[0]) {
-            soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
-                soundPool?.play(hisocreSnd,1f,1f,0,0,1f)
-            }
             tv.text = activity!!.getString(R.string.yourResulHiscore)
-            with(sharedPref.edit()) {
-                putInt(currentPlayer, points)
-                commit()
-            }
+            hiscoreExtra()
         } else if (points > sharedPref.getInt(currentPlayer, 0)) {
-            soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
-                soundPool?.play(hisocreSnd,1f,1f,0,0,1f)
-            }
             tv.text = activity!!.getString(R.string.yourResultPerHiscore)
-            with(sharedPref.edit()) {
-                putInt(currentPlayer, points)
-                commit()
-            }
+            hiscoreExtra()
         } else {
             tv.text = activity!!.getString(R.string.yourResultNoHiscore)
         }
@@ -148,6 +136,16 @@ class FragmentEndGame : Fragment() {
             R.string.personalHiText,
             sharedPref.getInt(currentPlayer, 0).toString()
         )
+    }
+
+    private fun hiscoreExtra(){
+        soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
+            soundPool?.play(hisocreSnd,1f,1f,0,0,1f)
+        }
+        with(sharedPref.edit()) {
+            putInt(currentPlayer, points)
+            commit()
+        }
     }
 
     fun getTop3() {

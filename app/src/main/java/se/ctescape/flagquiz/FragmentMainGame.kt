@@ -1,5 +1,9 @@
 package se.ctescape.flagquiz
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.content.Context
 import android.media.AudioAttributes
@@ -20,6 +24,7 @@ import kotlinx.coroutines.Dispatchers.Main
 
 class FragmentMainGame : Fragment() {
     val gameImageViews = mutableListOf<ImageView>()
+    val starImageViews = mutableListOf<ImageView>()
     lateinit var flagQuizGame: FlagQuiz
     var onlyOnePick = false
     lateinit var rubrik : TextView
@@ -33,7 +38,6 @@ class FragmentMainGame : Fragment() {
     private var soundPool: SoundPool? = null
     private var rightSnd = 0
     private var wrongSnd = 0
-    private var hisocreSnd = 0
     private var tickTockSnd = 0
     private var tickTockId = 0
 
@@ -77,8 +81,10 @@ class FragmentMainGame : Fragment() {
         question = v.findViewById(R.id.tvGameQuestion)
         for (i in 0..3) {
             gameImageViews.add(v.findViewById<ImageView>(resources.getIdentifier("ivFlagg$i", "id", activity!!.packageName)))
+            starImageViews.add(v.findViewById<ImageView>(resources.getIdentifier("star$i", "id", activity!!.packageName)))
+            starImageViews[i].visibility = ImageView.INVISIBLE
             gameImageViews[i].setOnTouchListener { view, e ->
-                getAnswer(e, gameImageViews[i], i)
+                getAnswer(e, i)
                 true
             }
         }
@@ -95,7 +101,6 @@ class FragmentMainGame : Fragment() {
 
         rightSnd = soundPool!!.load(context, R.raw.right_beep, 2)
         wrongSnd = soundPool!!.load(context, R.raw.bad_beep, 2)
-        hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
         tickTockSnd = soundPool!!.load(context, R.raw.clock, 3)
         soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
             tickTockId = soundPool?.play(tickTockSnd,1f,1f,0,-1,1f)?:0
@@ -178,44 +183,69 @@ class FragmentMainGame : Fragment() {
         listener.onEndOfGame(flagQuizGame.points, flagQuizGame.noOfFlags())
     }
 
-    fun getAnswer(e: MotionEvent, iv: ImageView, i: Int) {
+    fun getAnswer(e: MotionEvent, i: Int) {
         if (onlyOnePick) {
             when (e.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    iv.setImageResource(R.drawable.smileyworried)
+                    /* no-op */
                 }
                 MotionEvent.ACTION_UP -> {
                     soundPool?.pause(tickTockId)
                     onlyOnePick = false
                     job.cancel(CancellationException("Resetting progressbar"))
                     if (i != flagQuizGame.correctAnswer) {
-                        iv.setImageResource(R.drawable.wrong)
+                        wrongAnswer(i)
                     } else {
-                        flagQuizGame.points++
-                        iv.setImageResource(R.drawable.correct)
+                        rightAnswer(i)
                     }
                     if (i != flagQuizGame.correctAnswer || !flagQuizGame.checkFlagsLeft()) {
-                        if (i != flagQuizGame.correctAnswer) {
-                            val tvCorrect = gameImageViews[flagQuizGame.correctAnswer]
-                            tvCorrect.startAnimation(
-                                AnimationUtils.loadAnimation(
-                                    context,
-                                    R.anim.blink
-                                )
-                            )
-                            soundPool?.play(wrongSnd,1f,1f,0,0,1f)
-                        } else {
-                            soundPool?.play(rightSnd,1f,1f,0,0,1f)
-                        }
                         timerEnd.start()
                     } else {
-                        soundPool?.play(rightSnd,1f,1f,0,0,1f)
                         timerNew.start()
                     }
                 }
             }
         }
     }
+
+    private fun wrongAnswer(i: Int){
+        gameImageViews[i].setImageResource(R.drawable.wrong)
+        soundPool?.play(wrongSnd,1f,1f,0,0,1f)
+        val tvCorrect = gameImageViews[flagQuizGame.correctAnswer]
+        tvCorrect.startAnimation(
+            AnimationUtils.loadAnimation(
+                context,
+                R.anim.blink
+            )
+        )
+    }
+
+    private fun rightAnswer(i: Int){
+        flagQuizGame.points++
+        soundPool?.play(rightSnd,1f,1f,0,0,1f)
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,8f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,8f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(starImageViews[i], scaleX, scaleY)
+        animator.disableViewDuringAnimation(starImageViews[i], gameImageViews[i])
+        animator.repeatCount = 0
+        animator.repeatMode = ObjectAnimator.RESTART
+        animator.duration = 300
+        animator.start()
+    }
+
+    private fun ObjectAnimator.disableViewDuringAnimation(v1: View, v2: ImageView) {
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                v1.visibility = ImageView.VISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                v1.visibility = ImageView.INVISIBLE
+                v2.setImageResource(R.drawable.correct)
+            }
+        })
+    }
+
 
     interface onEndOfGame{
         fun onEndOfGame(points : Int, noOfFlags : Int)
