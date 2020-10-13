@@ -18,7 +18,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import se.ctescape.flagquiz.data.FQRepository
 import se.ctescape.flagquiz.data.FQdatabase
 import se.ctescape.flagquiz.data.FillDataBase
-// TODO: Animations
 // TODO: Clean up and comment the code
 class MainActivity : AppCompatActivity() {
     private lateinit var etName: EditText
