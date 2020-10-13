@@ -1,5 +1,10 @@
 package se.ctescape.flagquiz
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
+import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.media.AudioAttributes
@@ -9,8 +14,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_end_game.*
+import kotlinx.android.synthetic.main.fragment_end_game.view.*
 
 private const val ARG_PARAM1 = "points"
 private const val ARG_PARAM2 = "noOfFlags"
@@ -25,6 +33,7 @@ class FragmentEndGame : Fragment() {
     private var noOfFlags: Int = 0
     private lateinit var listener: onRestartGame
     private lateinit var backButton: Button
+    private lateinit var starImage: ImageView
     private val namesHi: Array<String> = arrayOf<String>("No Name", "No Name", "No Name")
     private val pointsHi = arrayOf<Int>(0, 0, 0)
     private var currentPlayer = ""
@@ -60,19 +69,22 @@ class FragmentEndGame : Fragment() {
             listener.onRestartGame()
         }
 
+        starImage = v.findViewById(R.id.star)
+        starImage.visibility = ImageView.INVISIBLE
+
         val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_GAME)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
 
         soundPool = SoundPool.Builder()
-            .setMaxStreams(3)
             .setAudioAttributes(audioAttributes)
             .build()
 
         hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
 
         fillPage(v)
+
         return v
     }
 
@@ -130,7 +142,6 @@ class FragmentEndGame : Fragment() {
         tv.text = namesHi[2]
         tv = v.findViewById<TextView>(R.id.tvThirdPlacePoints)
         tv.text = activity!!.getString(R.string.correctFlags, pointsHi[2].toString())
-
         tv = v.findViewById<TextView>(R.id.tvPersonalBest)
         tv.text = activity!!.getString(
             R.string.personalHiText,
@@ -139,13 +150,35 @@ class FragmentEndGame : Fragment() {
     }
 
     private fun hiscoreExtra(){
-        soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
-            soundPool?.play(hisocreSnd,1f,1f,0,0,1f)
-        }
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,20f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,20f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(starImage, scaleX, scaleY)
+        animator.disableViewDuringAnimation(starImage)
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.duration = 600
+        animator.start()
+
         with(sharedPref.edit()) {
             putInt(currentPlayer, points)
             commit()
         }
+
+        soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
+            soundPool?.play(hisocreSnd,0.99f,0.99f,1,0,1f)
+        }
+    }
+
+    private fun ObjectAnimator.disableViewDuringAnimation(v1: View) {
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationStart(animation: Animator?) {
+                v1.visibility = ImageView.VISIBLE
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                v1.visibility = ImageView.INVISIBLE
+            }
+        })
     }
 
     fun getTop3() {

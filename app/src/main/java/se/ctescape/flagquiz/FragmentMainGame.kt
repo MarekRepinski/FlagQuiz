@@ -246,7 +246,6 @@ class FragmentMainGame : Fragment() {
         })
     }
 
-
     interface onEndOfGame{
         fun onEndOfGame(points : Int, noOfFlags : Int)
     }
