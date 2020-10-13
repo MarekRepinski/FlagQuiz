@@ -103,9 +103,9 @@ class FragmentMainGame : Fragment() {
         wrongSnd = soundPool!!.load(context, R.raw.bad_beep, 2)
         tickTockSnd = soundPool!!.load(context, R.raw.clock, 3)
         soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
-            tickTockId = soundPool?.play(tickTockSnd,1f,1f,0,-1,1f)?:0
+            tickTockId = soundPool!!.play(tickTockSnd,1f,1f,0,-1,1f)
         }
-        soundPool?.pause(tickTockId)
+        soundPool!!.pause(tickTockId)
 
         flagQuizGame = FlagQuiz()
         if (!flagQuizGame.checkFlagsLeft())
@@ -140,8 +140,8 @@ class FragmentMainGame : Fragment() {
                             gameImageViews[i].setImageResource(R.drawable.timeisup)
                         }
                     }
-                    soundPool?.pause(tickTockId)
-                    soundPool?.play(wrongSnd,1f,1f,0,0,1f)
+                    soundPool!!.pause(tickTockId)
+                    soundPool!!.play(wrongSnd,1f,1f,0,0,1f)
                     timerEnd.start()
                 }
             }
@@ -176,7 +176,7 @@ class FragmentMainGame : Fragment() {
         job = Job()
         progressBar.max = PROGRESS_MAX
         progressBar.progress = PROGRESS_START
-        soundPool?.resume(tickTockId)
+        soundPool!!.resume(tickTockId)
     }
 
     fun endGame() {
@@ -190,7 +190,7 @@ class FragmentMainGame : Fragment() {
                     /* no-op */
                 }
                 MotionEvent.ACTION_UP -> {
-                    soundPool?.pause(tickTockId)
+                    soundPool!!.pause(tickTockId)
                     onlyOnePick = false
                     job.cancel(CancellationException("Resetting progressbar"))
                     if (i != flagQuizGame.correctAnswer) {
@@ -210,7 +210,7 @@ class FragmentMainGame : Fragment() {
 
     private fun wrongAnswer(i: Int){
         gameImageViews[i].setImageResource(R.drawable.wrong)
-        soundPool?.play(wrongSnd,1f,1f,0,0,1f)
+        soundPool!!.play(wrongSnd,1f,1f,0,0,1f)
         val tvCorrect = gameImageViews[flagQuizGame.correctAnswer]
         tvCorrect.startAnimation(
             AnimationUtils.loadAnimation(
@@ -222,7 +222,7 @@ class FragmentMainGame : Fragment() {
 
     private fun rightAnswer(i: Int){
         flagQuizGame.points++
-        soundPool?.play(rightSnd,1f,1f,0,0,1f)
+        soundPool!!.play(rightSnd,1f,1f,0,0,1f)
         val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,8f)
         val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,8f)
         val animator = ObjectAnimator.ofPropertyValuesHolder(starImageViews[i], scaleX, scaleY)

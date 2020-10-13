@@ -19,6 +19,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_end_game.*
 import kotlinx.android.synthetic.main.fragment_end_game.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "points"
 private const val ARG_PARAM2 = "noOfFlags"
@@ -40,6 +43,7 @@ class FragmentEndGame : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private var soundPool: SoundPool? = null
     private var hisocreSnd = 0
+    private var hisocreSndID = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -81,11 +85,15 @@ class FragmentEndGame : Fragment() {
             .setAudioAttributes(audioAttributes)
             .build()
 
-        hisocreSnd = soundPool!!.load(context, R.raw.fanfare_short, 1)
-
         fillPage(v)
 
         return v
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        soundPool?.release()
+        soundPool = null
     }
 
     companion object {
@@ -150,6 +158,13 @@ class FragmentEndGame : Fragment() {
     }
 
     private fun hiscoreExtra(){
+        CoroutineScope(Dispatchers.IO).launch {
+            hisocreSnd = soundPool!!.load(context, R.raw.fanfare_medival, 1)
+            soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
+                hisocreSndID = soundPool!!.play(hisocreSnd,1f,1f,1,0,1f)
+            }
+        }
+
         val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,20f)
         val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,20f)
         val animator = ObjectAnimator.ofPropertyValuesHolder(starImage, scaleX, scaleY)
@@ -162,10 +177,6 @@ class FragmentEndGame : Fragment() {
         with(sharedPref.edit()) {
             putInt(currentPlayer, points)
             commit()
-        }
-
-        soundPool?.setOnLoadCompleteListener { soundPool, i, i2 ->
-            soundPool?.play(hisocreSnd,0.99f,0.99f,1,0,1f)
         }
     }
 
