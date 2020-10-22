@@ -77,7 +77,7 @@ class FragmentEndGame : Fragment() {
         starImage.visibility = ImageView.INVISIBLE
 
         val audioAttributes = AudioAttributes.Builder()
-            .setUsage(AudioAttributes.USAGE_GAME)
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
             .build()
 
@@ -113,10 +113,10 @@ class FragmentEndGame : Fragment() {
         getTop3()
 
         var tv = v.findViewById<TextView>(R.id.tvResultTitle)
-        if (points > pointsHi[0]) {
+        if (points > pointsHi[0] && currentPlayer !="") {
             tv.text = activity!!.getString(R.string.yourResulHiscore)
             hiscoreExtra()
-        } else if (points > sharedPref.getInt(currentPlayer, 0)) {
+        } else if (points > sharedPref.getInt(currentPlayer, 0) && currentPlayer !="") {
             tv.text = activity!!.getString(R.string.yourResultPerHiscore)
             hiscoreExtra()
         } else {

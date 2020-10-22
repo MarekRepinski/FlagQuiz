@@ -5,15 +5,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+//Fill ROOM database if empty (count ==0)
 class FillDataBase(val context: Context) {
     private val repository : FQRepository
-    var finished = false
+    var finished = false    //So other threads may check if database is loaded
 
     init {
         val dao = FQdatabase.getDatabase(context).FQdao()
         repository = FQRepository(dao)
+
+        //Always use Coroutines when dealing with databases
         CoroutineScope(Dispatchers.IO).launch {
-//            repository.deleteAllFQdata()
             val tempInt = repository.getCount()
             if (tempInt == 0){
                 var tempFQ = FQdata(0, "Sweden", "Sverige", "Szwecja", "se", "scandinavia")

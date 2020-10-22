@@ -14,6 +14,7 @@ class PracticeActivity : AppCompatActivity() {
     var countryTxt = ""
     var lastFlag = -1
 
+    //Counter used to display correct answer for 2 sek
     private val timerNew = object: CountDownTimer(2000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             /* no-op */
@@ -29,10 +30,12 @@ class PracticeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_practice)
 
+        //Listener for the "Back" button
         back_btn.setOnClickListener {
             this.onBackPressed()
         }
 
+        //Listener if someone click on the flag for 2 sek
         practice_flagg_iv.setOnTouchListener { view, motionEvent ->
             practice_answer_txt.text = countryTxt
             timerNew.start()
@@ -41,6 +44,7 @@ class PracticeActivity : AppCompatActivity() {
         printNewFlag()
     }
 
+    //Choose a random flag from datamanager
     fun printNewFlag(){
         practice_answer_txt.text = "?????"
         var loopLimit = 0
